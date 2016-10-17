@@ -8,8 +8,8 @@ tags:
  - JS
 ---
 
-##要点记录
-###本地模块（[Native Modules][1]）
+## 要点记录
+### 本地模块（[Native Modules][1]）
 - **导出方法、导出静态变量、导出枚举**。
 - **本地模块改变运行线程的方法**。
 全局方法：重写属性methodQueue，如：
@@ -57,7 +57,7 @@ var subscription = NativeAppEventEmitter.addListener(
 // Don't forget to unsubscribe, typically in componentWillUnmount
 subscription.remove();
 ```
-##本地UI组件（[Native UI Components][2])
+## 本地UI组件（[Native UI Components][2])
 - **本地的View都是通过`RCTViewManager`的子类来管理的，比如：`UIScrollView`会对应有一个`RCTScrollViewManager`，但这些`RCTViewManager`本质上是个单列，因为他们只会被bridge创建一次。`UIView`、`RCTViewManager`、`RCTUIManager`之间的关系如下图(不一定正确，需要研读代码做修正)**：
 ``` seq
 UIView->RCTViewManager: UIView注册到RCTViewManager
@@ -122,7 +122,7 @@ var RCTMap = requireNativeComponent('RCTMap', MapView);
 
 module.exports = MapView;
 ```
-##FLUX
+## FLUX
 **MVC模式**：
 - Facebok 眼中的MVC
 ![Facebok 眼中的MVC](http://upload-images.jianshu.io/upload_images/1801567-736b93462451f44e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -142,7 +142,7 @@ All data flows through the dispatcher as a central hub. Actions are provided to 
 **FLUX与MVC的区别**
 - FLUX的Dispatcher与MVC的Controller的区别：Controller包含业务逻辑，而Dispatcher不包含业务逻辑，它可以在其他地方复用，主要职责是将事件分发给订阅者（Store）。
 
-##ES6语法相关
+## ES6语法相关
 - [**module**][3]
 1. **实质：**ES6模块加载的机制，与CommonJS模块完全不同。CommonJS模块输出的是一个值的拷贝，而ES6模块输出的是值的引用。CommonJS模块输出的是被输出值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。
 2. 循环加载问题，commonJS跟ES6的区别。
@@ -161,7 +161,7 @@ All data flows through the dispatcher as a central hub. Actions are provided to 
 `async`和`wait`关键字结合起来就实现了一个自动执行器。
 
 
-##遇到的问题
+## 遇到的问题
 1. 同时只能启动一个server。否则会报错：[error][tid:com.facebook.React.JavaScript] Application AwesomeProject has not been registered. This is either due to a require() error during initialization or failure to call AppRegistry.registerComponent.
 2. Xcode 的 run script的运行路径是工程文件.xcodeproj所在目录。
 3. ReactNative增量升级方案 http://react-china.org/t/reactnative/3932

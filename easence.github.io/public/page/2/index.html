@@ -331,9 +331,7 @@
       
         
           
-            <p>##要点记录</p>
-<p>###本地模块（<a href="http://facebook.github.io/react-native/docs/native-modules-ios.html#native-modules" target="_blank" rel="external">Native Modules</a>）</p>
-<ul>
+            <h2 id="要点记录"><a href="#要点记录" class="headerlink" title="要点记录"></a>要点记录</h2><h3 id="本地模块（Native-Modules）"><a href="#本地模块（Native-Modules）" class="headerlink" title="本地模块（Native Modules）"></a>本地模块（<a href="http://facebook.github.io/react-native/docs/native-modules-ios.html#native-modules" target="_blank" rel="external">Native Modules</a>）</h3><ul>
 <li><strong>导出方法、导出静态变量、导出枚举</strong>。</li>
 <li><strong>本地模块改变运行线程的方法</strong>。<br>全局方法：重写属性methodQueue，如：<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">dispatch_queue_t</span>)methodQueue</div><div class="line">&#123;</div><div class="line">  <span class="keyword">return</span> dispatch_queue_create(<span class="string">"com.facebook.React.AsyncLocalStorageQueue"</span>, DISPATCH_QUEUE_SERIAL);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
@@ -344,8 +342,7 @@
 </li>
 </ul>
 <p>JavaScript订阅事件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; NativeAppEventEmitter &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</div><div class="line"><span class="keyword">var</span> subscription = NativeAppEventEmitter.addListener(</div><div class="line">  <span class="string">'EventReminder'</span>,</div><div class="line">  (reminder) =&gt; <span class="built_in">console</span>.log(reminder.name)</div><div class="line">);</div><div class="line">...</div><div class="line"><span class="comment">// Don't forget to unsubscribe, typically in componentWillUnmount</span></div><div class="line">subscription.remove();</div></pre></td></tr></table></figure></p>
-<p>##本地UI组件（<a href="http://facebook.github.io/react-native/docs/native-components-ios.html#content" target="_blank" rel="external">Native UI Components</a>)</p>
-<ul>
+<h2 id="本地UI组件（Native-UI-Components"><a href="#本地UI组件（Native-UI-Components" class="headerlink" title="本地UI组件（Native UI Components)"></a>本地UI组件（<a href="http://facebook.github.io/react-native/docs/native-components-ios.html#content" target="_blank" rel="external">Native UI Components</a>)</h2><ul>
 <li><p><strong>本地的View都是通过<code>RCTViewManager</code>的子类来管理的，比如：<code>UIScrollView</code>会对应有一个<code>RCTScrollViewManager</code>，但这些<code>RCTViewManager</code>本质上是个单列，因为他们只会被bridge创建一次。<code>UIView</code>、<code>RCTViewManager</code>、<code>RCTUIManager</code>之间的关系如下图(不一定正确，需要研读代码做修正)</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">UIView-&gt;RCTViewManager: UIView注册到RCTViewManager</div><div class="line">RCTViewManager-&gt;RCTUIManager:提供UIView给</div><div class="line">RCTUIManager--&gt;RCTViewManager: 在更新UIView的属性时候通知它</div><div class="line">RCTViewManager--&gt;UIView: 更新或设置UIView的属性</div></pre></td></tr></table></figure>
 </li>
@@ -356,7 +353,7 @@
 <p>然后在JavaScript中就可以这一样使用了：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MapView.js</span></div><div class="line"><span class="keyword">import</span> &#123; requireNativeComponent &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</div><div class="line"><span class="comment">//requireNativeComponent automatically resolves this to "RCTMapManager"</span></div><div class="line">&lt;RCTMap showsUserLocation=&#123;<span class="literal">false</span>&#125; /&gt;</div><div class="line"><span class="built_in">module</span>.exports = requireNativeComponent(<span class="string">'RCTMap'</span>, <span class="literal">null</span>);</div></pre></td></tr></table></figure></p>
 <p>然而这并不是最好的方式，由于在Js中并不是很清楚的能看出来属性有什么，是什么类型，所以最好是将RCTMap再包一层，比如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MapView.js</span></div><div class="line"><span class="keyword">import</span> React, &#123; requireNativeComponent &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MapView</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> &lt;RCTMap &#123;...this.props&#125; /&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">MapView.propTypes = &#123;</div><div class="line">  /**</div><div class="line">   * When this property is set to `true` and a valid camera is associated</div><div class="line">   * with the map, the camera’s pitch angle is used to tilt the plane</div><div class="line">   * of the map. When this property is set to `false`, the camera’s pitch</div><div class="line">   * angle is ignored and the map is always displayed as if the user</div><div class="line">   * is looking straight down onto it.</div><div class="line">   */</div><div class="line">  pitchEnabled: React.PropTypes.bool,</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var RCTMap = requireNativeComponent('RCTMap', MapView);</div><div class="line"></div><div class="line">module.exports = MapView;</div></pre></td></tr></table></figure>
-<p>##FLUX<br><strong>MVC模式</strong>：</p>
+<h2 id="FLUX"><a href="#FLUX" class="headerlink" title="FLUX"></a>FLUX</h2><p><strong>MVC模式</strong>：</p>
 <ul>
 <li>Facebok 眼中的MVC<br><img src="http://upload-images.jianshu.io/upload_images/1801567-736b93462451f44e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Facebok 眼中的MVC"></li>
 <li>网友眼中的MVC<br><img src="http://upload-images.jianshu.io/upload_images/1801567-da96d932bead788d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网友眼中的MVC"></li>
@@ -373,8 +370,7 @@
 <ul>
 <li>FLUX的Dispatcher与MVC的Controller的区别：Controller包含业务逻辑，而Dispatcher不包含业务逻辑，它可以在其他地方复用，主要职责是将事件分发给订阅者（Store）。</li>
 </ul>
-<p>##ES6语法相关</p>
-<ul>
+<h2 id="ES6语法相关"><a href="#ES6语法相关" class="headerlink" title="ES6语法相关"></a>ES6语法相关</h2><ul>
 <li><a href="https://github.com/ruanyf/es6tutorial/blob/8ad3c20f5f477a091282c764c15032732d386c48/docs/module.md"><strong>module</strong></a></li>
 </ul>
 <ol>
@@ -394,8 +390,7 @@
 </li>
 <li><a href="https://github.com/ruanyf/es6tutorial/blob/202f04bc43e0a9a74113338f0518847797071ae4/docs/async.md#async-函数的用法">ES7的<code>async</code>和<code>wait</code>关键字</a><br><code>async</code>和<code>wait</code>关键字结合起来就实现了一个自动执行器。</li>
 </ol>
-<p>##遇到的问题</p>
-<ol>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
 <li>同时只能启动一个server。否则会报错：[error][tid:com.facebook.React.JavaScript] Application AwesomeProject has not been registered. This is either due to a require() error during initialization or failure to call AppRegistry.registerComponent.</li>
 <li>Xcode 的 run script的运行路径是工程文件.xcodeproj所在目录。</li>
 <li>ReactNative增量升级方案 <a href="http://react-china.org/t/reactnative/3932" target="_blank" rel="external">http://react-china.org/t/reactnative/3932</a></li>

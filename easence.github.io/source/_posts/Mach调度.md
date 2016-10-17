@@ -1,5 +1,5 @@
 ﻿---
-title: 读书笔记之Mach调度
+title: Mach调度
 categories: 
  - Apple Development
  - 深入解析Mac OS X && iOS操作系统笔记
