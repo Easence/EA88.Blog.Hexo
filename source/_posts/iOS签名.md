@@ -1,9 +1,13 @@
-﻿# iOS签名
-
-标签（空格分隔）： iOS 安全
-
+﻿---
+title: iOS签名
+categories: 
+ - Apple Development 
+ - 安全
+tags:
+ - 安全
+ - JS
 ---
-[TOC]
+
 ## 签名证书（开发者证书）生成过程
 - 本地生成CertificateSigningRequest.certSigningRequest（包含`用本地私钥加密的申请者信息`、`公钥`、`摘要算法、非对称加密算法`）。而私钥秘密的保存在本地。
 - 苹果拿出CertificateSigningRequest.certSigningRequest里面的`公钥`,并将MC账号的用户信息封装到证书里面。
