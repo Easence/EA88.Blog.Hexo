@@ -1,15 +1,17 @@
-﻿# KVO后[obj class]与object_getClass(id obj)的结果竟会不一致？
-
-标签（空格分隔）： iOS 开发
-
+﻿---
+title: KVO后[obj class]与object_getClass(id obj)的结果竟会不一致？
+date: 2016-07-09 14:22:30
+categories: 
+ - Apple Development
+ - iOS开发笔记
+tags:
 ---
-[TOC]
 
 ## 遇到的问题
 在做iOS项目过程中，一次偶然的机会发现`object_getClass(id obj)`返回的结果是`NSKVONotifing_ObjectClass`,`[obj class]`返回的结果却是`ObjectClass`,它们的结果竟会不一致？      
 这不科学啊。因为实例的`class方法`，底层实际上就是调用runtime的`object_getClass(id obj)`方法实现的，所以正常的情况下这两个方法返回的结果应该是一致的。那是什么原因导致的呢？
 
-##KVO是元凶
+## KVO是元凶
 -  从`object_getClass(id obj)`返回的结果`NSKVONotifing_ObjectClass`我们可以猜测，obj可能使用了KVO。那么我们要知道问题出在什么地方，就可以从KVO的实现原理入手。
 -  KVO的原理
 > 其实也简单，就是利用OC的runtime特性，更改了isa只能只指向类，以下三步是必不可少的：
