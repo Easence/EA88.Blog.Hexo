@@ -2,11 +2,9 @@
 title: Building xnu for OS X 10.11 El Capitan
 categories: 
  - Apple Development
- - 深入解析Mac OS X && iOS操作系统笔记
- - 内核
+ - 深入解析Mac OS X && iOS操作系统笔记 
 tags:
- - 内核
- - 编译
+ - XNU
 ---
 
 

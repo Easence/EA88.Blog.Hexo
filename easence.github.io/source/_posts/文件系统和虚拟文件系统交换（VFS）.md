@@ -3,9 +3,8 @@ title: 文件系统和虚拟文件系统交换（VFS）
 categories: 
  - Apple Development
  - 深入解析Mac OS X && iOS操作系统笔记
- - 内核
 tags:
- - 内核
+ - 文件系统
 ---
 
 ## 硬盘分区

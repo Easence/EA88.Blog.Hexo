@@ -3,9 +3,8 @@ title: 引导过程：EFI和iBoot
 categories: 
  - Apple Development
  - 深入解析Mac OS X && iOS操作系统笔记
- - 内核
 tags:
- - 内核
+ - 引导过程
 ---
 
 ## 什么是引导过程

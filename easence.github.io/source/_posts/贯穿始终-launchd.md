@@ -2,10 +2,8 @@
 title: 贯穿始终-launchd
 categories: 
  - Apple Development
- - 深入解析Mac OS X && iOS操作系统笔记
- - 内核
+ - 深入解析Mac OS X && iOS操作系统笔记 
 tags:
- - 内核
  - launchd
 ---
 

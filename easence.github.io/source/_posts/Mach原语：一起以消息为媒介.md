@@ -2,8 +2,7 @@
 title: Mach原语：一切以消息为媒介
 categories: 
  - Apple Development
- - 深入解析Mac OS X && iOS操作系统笔记
- - 内核
+ - 深入解析Mac OS X && iOS操作系统笔记 
 tags:
  - Mach
 ---
