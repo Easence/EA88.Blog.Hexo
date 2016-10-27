@@ -256,6 +256,152 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/24/简约的iOS音乐播放UI控件/" itemprop="url">
+                  简约的iOS音乐播放UI控件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-24T18:46:59+08:00" content="2016-05-24">
+              2016-05-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Apple-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Apple Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Apple-Development/iOS开发笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="这是一个什么样的控件"><a href="#这是一个什么样的控件" class="headerlink" title="这是一个什么样的控件"></a>这是一个什么样的控件</h2><p>该控件不包含音乐播放的逻辑，单纯的只是UI层面的展示。但可以结合下载、音乐播放逻辑，拼接成一个简易的播放器。代码托管在<a href="https://github.com/Easence/EAMiniAudioPlayerView">Github</a>上，并支持cocoapods安装。<br><img src="https://github.com/Easence/EADocuments/blob/master/Apple/iOS%20Development/OC/images/EAMiniAudioPlayer/1.gif?raw=true" alt="效果图"></p>
+<h2 id="主要功能介绍以及使用"><a href="#主要功能介绍以及使用" class="headerlink" title="主要功能介绍以及使用"></a>主要功能介绍以及使用</h2><ul>
+<li><p><strong>支持隐藏播放按钮、隐藏声音的波浪图标、以及隐藏文字。</strong></p>
+<blockquote>
+<p>可以通过设置<code>EAMiniAudioPlayerStyleConfig</code>的<code>playerStyle</code>属性来实现只展示某部分元素, EAMiniPlayerStyle是一个枚举：</p>
+</blockquote>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef NS_ENUM(NSUInteger, EAMiniPlayerStyle) &#123;</div><div class="line">EAMiniPlayerNormal = 1 &lt;&lt; 0,   //Has play button,sound icon</div><div class="line">EAMiniPlayerHidePlayButton = 1 &lt;&lt; 1, //Hide play button</div><div class="line">EAMiniPlayerHideSoundIcon = 1 &lt;&lt; 2, //Hide sound icon</div><div class="line">EAMiniPlayerHideText = 1 &lt;&lt; 3, //Hide text label</div><div class="line">&#125;;</div><div class="line"> EAMiniAudioPlayerStyleConfig *config = [EAMiniAudioPlayerStyleConfig defaultConfig];</div><div class="line"> config.playerStyle |= EAMiniPlayerHidePlayButton;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>支持下载进度展示。</strong><br>实时的设置<code>EAMiniAudioPlayerView</code>的<code>downloadProgress</code>属性（取值在0和1之间）可以改变下载进度展示，结合下载逻辑可以实现音乐下载的效果。当<code>downloadProgress</code>的值达到1的时候会有调用<code>void(^downloadCompleted)(void)</code>这个block。</p>
+</li>
+<li><p><strong>支持播放进度展示。</strong><br>设置<code>EAMiniAudioPlayerView</code>的<code>playProgress</code>属性（取值在0和1之间）可以改变播放进度展示，结合音乐播放逻辑可以实现音乐播放的效果。当<code>playProgress</code>的值达到1的时候会有调用<code>void(^playCompleted)(void)</code>这个block。</p>
+</li>
+<li><p><strong>其他</strong><br>自定义圆角、内容的偏移、自定义颜色等。</p>
+</li>
+</ul>
+<h2 id="怎么使用"><a href="#怎么使用" class="headerlink" title="怎么使用"></a>怎么使用</h2><ul>
+<li><p><strong>使用cocoapods安装：</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod install EAMiniAudioPlayerView</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>这是一个纯粹的UI控件，查看完成的demo可以移步到<a href="https://github.com/Easence/EAMiniAudioPlayerView">这里</a>。</p>
+<hr>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/29/iOS引导页的镂空效果/" itemprop="url">
                   iOS引导页的镂空效果
                 </a>
@@ -694,7 +840,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">24</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -702,7 +848,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -711,7 +857,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
