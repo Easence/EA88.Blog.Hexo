@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="XNU," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,22 +84,19 @@
 
 
 
-<meta name="description" content="此文只因为国内浏览ssen’s blog需要翻墙，为了方便浏览从中拷贝了一份。
-The OS X kernel source (xnu) has been released for OS X 10.11 El Capitan: here
-Building xnu requires Xcode and some additional open-source (but not pre-installe">
+<meta name="description" content="冲动的惩罚自从有那段使用beta版本的Mac OSX系统，导致机器时常开机卡死的经历之后，就尽量不敢在第一时间使用苹果的beta版系统。但是，由于自己是名iOS开发者，当Xcode出了beta版本无疑是需要第一时间体验一下的，即使Xcode beta版本可以不体验，但是出了第一个Release版本却是不得不更新。接下来讲的就是在使用Xcode8.0所遇到的坑。
+坑与填平坑Storyboard对于S">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Building xnu for OS X 10.11 El Capitan">
-<meta property="og:url" content="https://github.com/Easence/2016/09/08/Building xnu for OS X 10.11 El Capitan/index.html">
+<meta property="og:title" content="从code7到xcode8都有哪些坑?">
+<meta property="og:url" content="https://github.com/Easence/2016/10/22/从code7到xcode8都有哪些坑？/index.html">
 <meta property="og:site_name" content="EA88'Blog">
-<meta property="og:description" content="此文只因为国内浏览ssen’s blog需要翻墙，为了方便浏览从中拷贝了一份。
-The OS X kernel source (xnu) has been released for OS X 10.11 El Capitan: here
-Building xnu requires Xcode and some additional open-source (but not pre-installe">
-<meta property="og:updated_time" content="2016-10-18T13:04:20.000Z">
+<meta property="og:description" content="冲动的惩罚自从有那段使用beta版本的Mac OSX系统，导致机器时常开机卡死的经历之后，就尽量不敢在第一时间使用苹果的beta版系统。但是，由于自己是名iOS开发者，当Xcode出了beta版本无疑是需要第一时间体验一下的，即使Xcode beta版本可以不体验，但是出了第一个Release版本却是不得不更新。接下来讲的就是在使用Xcode8.0所遇到的坑。
+坑与填平坑Storyboard对于S">
+<meta property="og:updated_time" content="2016-10-22T15:41:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Building xnu for OS X 10.11 El Capitan">
-<meta name="twitter:description" content="此文只因为国内浏览ssen’s blog需要翻墙，为了方便浏览从中拷贝了一份。
-The OS X kernel source (xnu) has been released for OS X 10.11 El Capitan: here
-Building xnu requires Xcode and some additional open-source (but not pre-installe">
+<meta name="twitter:title" content="从code7到xcode8都有哪些坑?">
+<meta name="twitter:description" content="冲动的惩罚自从有那段使用beta版本的Mac OSX系统，导致机器时常开机卡死的经历之后，就尽量不敢在第一时间使用苹果的beta版系统。但是，由于自己是名iOS开发者，当Xcode出了beta版本无疑是需要第一时间体验一下的，即使Xcode beta版本可以不体验，但是出了第一个Release版本却是不得不更新。接下来讲的就是在使用Xcode8.0所遇到的坑。
+坑与填平坑Storyboard对于S">
 
 
 
@@ -120,10 +117,10 @@ Building xnu requires Xcode and some additional open-source (but not pre-install
 
 
 
-  <link rel="canonical" href="https://github.com/Easence/2016/09/08/Building xnu for OS X 10.11 El Capitan/"/>
+  <link rel="canonical" href="https://github.com/Easence/2016/10/22/从code7到xcode8都有哪些坑？/"/>
 
 
-  <title> Building xnu for OS X 10.11 El Capitan | EA88'Blog </title>
+  <title> 从code7到xcode8都有哪些坑? | EA88'Blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +257,7 @@ Building xnu requires Xcode and some additional open-source (but not pre-install
             
             
               
-                Building xnu for OS X 10.11 El Capitan
+                从code7到xcode8都有哪些坑?
               
             
           </h1>
@@ -272,8 +269,8 @@ Building xnu requires Xcode and some additional open-source (but not pre-install
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-08T10:36:41+08:00" content="2016-09-08">
-              2016-09-08
+            <time itemprop="dateCreated" datetime="2016-10-22T10:08:17+08:00" content="2016-10-22">
+              2016-10-22
             </time>
           </span>
 
@@ -298,8 +295,8 @@ Building xnu requires Xcode and some additional open-source (but not pre-install
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Apple-Development/深入解析Mac-OS-X-iOS操作系统笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">深入解析Mac OS X && iOS操作系统笔记</span>
+                  <a href="/categories/Apple-Development/iOS开发笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发笔记</span>
                   </a>
                 </span>
 
@@ -331,46 +328,18 @@ Building xnu requires Xcode and some additional open-source (but not pre-install
       
 
       
-        <p><em>此文只因为国内浏览<a href="http://shantonu.blogspot.co.uk" target="_blank" rel="external">ssen’s blog</a>需要翻墙，为了方便浏览从中拷贝了一份。</em></p>
-<p>The OS X kernel source (xnu) has been released for OS X 10.11 El Capitan: <a href="https://opensource.apple.com/source/xnu/xnu-3247.1.106/" target="_blank" rel="external">here</a></p>
-<p>Building xnu requires Xcode and some additional open-source (but not pre-installed) dependencies. You can build xnu manually by doing:</p>
-<ol>
-<li>Install OS X El Capitan and Xcode 7.0, 7.1, or 7.2 from the Mac App Store, make sure the Xcode license has been agreed-to with “sudo xcodebuild -license”</li>
-<li><p>Download the source for the dtrace and AvailabilityVersions projects, which are required dependencies, as well as xnu itself</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ curl -O https://opensource.apple.com/tarballs/dtrace/dtrace-168.tar.gz</div><div class="line">$ curl -O https://opensource.apple.com/tarballs/AvailabilityVersions/AvailabilityVersions-20.tar.gz</div><div class="line">$ curl -O https://opensource.apple.com/tarballs/xnu/xnu-3247.1.106.tar.gz</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>Build and install CTF tools from dtrace</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">    $ tar zxf dtrace-168.tar.gz</div><div class="line">    $ cd dtrace-168</div><div class="line">    $ mkdir -p obj sym dst</div><div class="line">    $ xcodebuild install -target ctfconvert -target ctfdump -target ctfmerge ARCHS=&quot;x86_64&quot; SRCROOT=$PWD OBJROOT=$PWD/obj SYMROOT=$PWD/sym DSTROOT=$PWD/dst</div><div class="line">    ...</div><div class="line">    $ sudo ditto $PWD/dst/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain</div><div class="line">    Password:</div><div class="line">    $ cd ..</div><div class="line">	```    </div><div class="line"></div><div class="line">4. Install AvailabilityVersions</div></pre></td></tr></table></figure>
-<p> $ tar zxf AvailabilityVersions-20.tar.gz<br> $ cd AvailabilityVersions-20<br> $ mkdir -p dst<br> $ make install SRCROOT=$PWD DSTROOT=$PWD/dst<br> $ sudo ditto $PWD/dst/usr/local <code>xcrun -sdk macosx -show-sdk-path</code>/usr/local<br> $ cd ..</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">5. Build xnu</div></pre></td></tr></table></figure>
-<p> $ tar zxf xnu-3247.1.106.tar.gz<br> $ cd xnu-3247.1.106<br> $ make SDKROOT=macosx ARCH_CONFIGS=X86_64 KERNEL_CONFIGS=RELEASE</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">**See xnu&apos;s top-level README for additional build variables that can be passed on the command-line, such as BUILD\_LTO=0 or KERNEL\_CONFIGS=DEVELOPMENT .**</div><div class="line"></div><div class="line">Update: If you are attempting to add system calls, you may also need to build Libsyscall.</div><div class="line"></div><div class="line">1. Download the Libsystem source</div></pre></td></tr></table></figure>
-<p> $ curl -O <a href="https://opensource.apple.com/tarballs/Libsystem/Libsystem-1225.1.1.tar.gz" target="_blank" rel="external">https://opensource.apple.com/tarballs/Libsystem/Libsystem-1225.1.1.tar.gz</a></p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">2. Install Libsystem headers</div></pre></td></tr></table></figure>
-<p> $ tar zxf Libsystem-1225.1.1.tar.gz<br> $ cd Libsystem-1225.1.1<br> $ xcodebuild installhdrs -sdk macosx ARCHS=’x86_64 i386’ SRCROOT=$PWD OBJROOT=$PWD/obj SYMROOT=$PWD/sym DSTROOT=$PWD/dst<br> $ sudo ditto $PWD/dst <code>xcrun -sdk macosx -show-sdk-path</code><br> $ cd ..</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3. Install xnu and Libsyscall headers</div></pre></td></tr></table></figure>
-<p> $ cd xnu-3247.1.106<br> $ mkdir -p BUILD.hdrs/obj BUILD.hdrs/sym BUILD.hdrs/dst<br> $ make installhdrs SDKROOT=macosx ARCH_CONFIGS=X86_64 SRCROOT=$PWD OBJROOT=$PWD/BUILD.hdrs/obj SYMROOT=$PWD/BUILD.hdrs/sym DSTROOT=$PWD/BUILD.hdrs/dst<br> $ sudo xcodebuild installhdrs -project libsyscall/Libsyscall.xcodeproj -sdk macosx ARCHS=’x86_64 i386’ SRCROOT=$PWD/libsyscall OBJROOT=$PWD/BUILD.hdrs/obj SYMROOT=$PWD/BUILD.hdrs/sym DSTROOT=$PWD/BUILD.hdrs/dst<br> $ sudo ditto BUILD.hdrs/dst <code>xcrun -sdk macosx -show-sdk-path</code></p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">4. Build Libsyscall</div></pre></td></tr></table></figure>
-<p> $ mkdir -p BUILD.libsyscall/obj BUILD.libsyscall/sym BUILD.libsyscall/dst<br> $ sudo xcodebuild install -project libsyscall/Libsyscall.xcodeproj -sdk macosx ARCHS=’x86_64 i386’ SRCROOT=$PWD/libsyscall OBJROOT=$PWD/BUILD.libsyscall/obj SYMROOT=$PWD/BUILD.libsyscall/sym DSTROOT=$PWD/BUILD.libsyscall/dst</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">5. To install custom OS components, [System Integrity Protection must be disabled](https://developer.apple.com/library/mac/documentation/Security/Conceptual/System_Integrity_Protection_Guide/ConfiguringSystemIntegrityProtection/ConfiguringSystemIntegrityProtection.html#//apple_ref/doc/uid/TP40016462-CH5-SW1).</div><div class="line"></div><div class="line">6. To install the resulting new binaries, execute:</div><div class="line">  	1. xnu:</div></pre></td></tr></table></figure>
-<pre><code>$ sudo cp BUILD/obj/RELEASE_X86_64/kernel /System/Library/Kernels/
-$ sudo kextcache -invalidate /
-/ locked; waiting for lock.
-Lock acquired; proceeding.
-...
-$ sudo reboot
-    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2. Libsyscall:</div></pre></td></tr></table></figure>
-
-$ sudo cp BUILD.libsyscall/dst/usr/lib/system/libsystem_kernel.dylib /usr/lib/system/
-$ sudo update_dyld_shared_cache
-...
-$ sudo reboot
-```
-</code></pre></li>
-</ol>
-<hr>
+        <h2 id="冲动的惩罚"><a href="#冲动的惩罚" class="headerlink" title="冲动的惩罚"></a>冲动的惩罚</h2><p>自从有那段使用beta版本的Mac OSX系统，导致机器时常开机卡死的经历之后，就尽量不敢在第一时间使用苹果的beta版系统。但是，由于自己是名iOS开发者，当Xcode出了beta版本无疑是需要第一时间体验一下的，即使Xcode beta版本可以不体验，但是出了第一个Release版本却是不得不更新。接下来讲的就是在使用Xcode8.0所遇到的坑。</p>
+<h2 id="坑与填平坑"><a href="#坑与填平坑" class="headerlink" title="坑与填平坑"></a>坑与填平坑</h2><h3 id="Storyboard"><a href="#Storyboard" class="headerlink" title="Storyboard"></a>Storyboard</h3><p>对于Storyboard相信大家对它都不陌生，自从iOS5之后就开始支持了，是一种可视化开发组件。本人使用过Android、Windows Phone以及iOS的可视化组件，可以说Storyboard是这三个平台中最流畅、最好用的可视化开发组件，采用StoryBoard虽然会比纯代码写UI效率上会有那么一点损耗，但对于一般的应用，在开发之初它确实可以大大的提高开发效率、也易于维护（可以想想当年那些不采用Storyboard编写的代码，即使更改一个坐标位置都是极其痛苦的），可以说是利大于弊。但是就在最近升级到Xcode8之后，发现StoryBoard有如下几点变动（坑）。</p>
+<h4 id="所有UI控件的宽高设定了同一个初始值：1000。"><a href="#所有UI控件的宽高设定了同一个初始值：1000。" class="headerlink" title="所有UI控件的宽高设定了同一个初始值：1000。"></a>所有UI控件的宽高设定了同一个初始值：1000。</h4><p>在Xcode7的时候，StoryBoard生成的UI控件的默认宽高都是3.5英寸的宽高。采用自动布局时，在load完Storyboard之后，读取到UI控件的宽虽然不正确，但是大部分情况下高却是我们想要的，并且由于宽是320，是小于等于任何尺寸的宽，所以在UI渲染上并没有可见性的问题。<br>但是对于Xcode8则不同，只要是通过Storyboard生成的UI都是统一给定一个固定值：1000。在load完Storyboard之后，自动布局计算完高度之前，读出来的宽高都是1000。这就导致原先所有依赖于bounds计算位置宽高，没有任何问题的UI展示逻辑，采用Xcode8一编译就乱套了，比如会看到：图片无故拉长后再恢复原状，原先好好的布局出现了UI重叠在一起，有的UI甚至刷新不出来等。解决的办法主要有两个：</p>
+<ul>
+<li><strong>将Storyboar的打开方式选择xcode7.x</strong>（在右侧Show the file inspector-&gt;interface Builder Document-&gt;open in）。但这么做的缺点是：当你再次打开Storyboard，Xcode又帮你自动选中打开方式为Xcode8.0。而且为了以后着想，还是采用下面这种方式吧。</li>
+<li>在代码要使用UI宽高做些计算之前，调用一下<strong>layoutIfNeeded</strong>。这样就能获得在Storyboard设计的宽高（当使用4.0英寸来设计获得就是在4.0英寸下的宽高，采用的是3.0英寸来设计获得的就是3.0英寸的宽高）。</li>
+</ul>
+<h4 id="cornerRadius"><a href="#cornerRadius" class="headerlink" title="cornerRadius"></a>cornerRadius</h4><p>本人在开发过程中还遇到了这么一个问题：明明之前显示得好好的控件，为什么采用Xcode8编译之后，就消失不见了呢？并且采用Capture view Hierarchy工具查看又能看见这个控件，但是在模拟器或者真机上就是死活渲染不出来。经过各种调试最后发现是因为cornerRadius设置了一个比自己宽高还大的值（类似bounds.size.width / 2这样的逻辑，由于默认宽高为1000，因此计算出来的cornerRadius就是500了，比我的控件的宽高都大），导致了控件渲染不出来。这种情况采用上面的第二种方法，在使用bounds之前layoutIfNeeded一下，就基本跟以前一样了。</p>
+<h4 id="TableView-static-cells"><a href="#TableView-static-cells" class="headerlink" title="TableView static cells"></a>TableView static cells</h4><p>当采用Taleview的的静态cell之后，如果header的高度是动态变化的，不管你如何reload data，底下的cell的frame都不会发生改变，除非你自己手动设置目标cell的frame。</p>
+<h4 id="不支持iOS7，却可以提交iOS7应用"><a href="#不支持iOS7，却可以提交iOS7应用" class="headerlink" title="不支持iOS7，却可以提交iOS7应用"></a>不支持iOS7，却可以提交iOS7应用</h4><p>Xcode8之后就不支持iOS7设备的调试了，但是Apptore却可以提交iOS7系统的应用。当在iOS7设备上遇到bug的时候，调试就成了困难。你不得不再下载一个xcode7来进行iOS7的调试，并且前提是你没有升级macOS为10.12，否则你连xcode7都打不开，更谈不上调试了。虽然现在确实iOS7的用户量很少，可对于一个步入正轨的app，只能是慢慢的放弃。开发工具虽不支持调试，但却可以提交Appstore，这对于开发者来说，对老板，用户都不好交代。既然想要放弃iOS7，为啥不干脆整个入口都封死呢？</p>
+<h4 id="卡卡卡"><a href="#卡卡卡" class="headerlink" title="卡卡卡"></a>卡卡卡</h4><p>最后一点就是卡顿啊，特别是与macOS10.12配合一起，一编译，好几次机器几乎就变成了单进程应用了，其他的应用瞬间失灵。大好心情转瞬即逝啊！</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>这次的Xcode8的升级之旅太不愉快了。经过这几年的iOS开发，一路走来感觉苹果的产品bug越来越多，也越来越不稳定，真为自己担忧啊。不知道看到这篇吐槽的iOS开发者们，你们是否也遇到了一些Xcode8的坑？</p>
 
       
     </div>
@@ -391,27 +360,21 @@ $ sudo reboot
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/XNU/" rel="tag">#XNU</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/07/由生到死--内核引导和内核崩溃/" rel="next" title="由生到死--内核引导和内核崩溃">
-                <i class="fa fa-chevron-left"></i> 由生到死--内核引导和内核崩溃
+              <a href="/2016/09/16/Mach-O格式文件(用户态下的进程加载)/" rel="next" title="Mach-O格式文件(用户态下的进程加载)">
+                <i class="fa fa-chevron-left"></i> Mach-O格式文件(用户态下的进程加载)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/11/Mach原语：一起以消息为媒介/" rel="prev" title="Mach原语：一切以消息为媒介">
-                Mach原语：一切以消息为媒介 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/10/23/高效学习法/" rel="prev" title="高效学习法">
+                高效学习法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -546,7 +509,7 @@ $ sudo reboot
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#冲动的惩罚"><span class="nav-number">1.</span> <span class="nav-text">冲动的惩罚</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坑与填平坑"><span class="nav-number">2.</span> <span class="nav-text">坑与填平坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Storyboard"><span class="nav-number">2.1.</span> <span class="nav-text">Storyboard</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#所有UI控件的宽高设定了同一个初始值：1000。"><span class="nav-number">2.1.1.</span> <span class="nav-text">所有UI控件的宽高设定了同一个初始值：1000。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cornerRadius"><span class="nav-number">2.1.2.</span> <span class="nav-text">cornerRadius</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TableView-static-cells"><span class="nav-number">2.1.3.</span> <span class="nav-text">TableView static cells</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不支持iOS7，却可以提交iOS7应用"><span class="nav-number">2.1.4.</span> <span class="nav-text">不支持iOS7，却可以提交iOS7应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卡卡卡"><span class="nav-number">2.1.5.</span> <span class="nav-text">卡卡卡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">3.</span> <span class="nav-text">最后</span></a></li></ol></div>
             
           </div>
         </section>
