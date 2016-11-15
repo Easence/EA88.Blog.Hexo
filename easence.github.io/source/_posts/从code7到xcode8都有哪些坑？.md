@@ -4,6 +4,8 @@ categories:
   - Apple Development
   - iOS开发笔记
 date: 2016-10-22 10:08:17
+description: "自从有那段使用beta版本的Mac OSX系统，导致机器时常开机卡死的经历之后，就尽量不敢在第一时间使用苹果的beta版系统。但是，由于自己是名iOS开发者，当Xcode出了beta版本无疑是需要第一时间体验一下的，即使Xcode beta版本可以不体验，但是出了第一个Release版本却是不得不更新。接下来讲的就是在使用Xcode8.0所遇到的坑。"
+
 tags:
 ---
 
