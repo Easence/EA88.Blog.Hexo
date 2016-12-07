@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="遇到的问题在做iOS项目过程中，一次偶然的机会发现object_getClass(id obj)返回的结果是NSKVONotifing_ObjectClass,[obj class]返回的结果却是ObjectClass,它们的结果竟会不一致？这不科学啊。因为实例的class方法，底层实际上就是调用runtime的object_getClass(id obj)方法实现的，所以正常的情况下这两个方法返">
+<meta name="description" content="在做iOS项目过程中，一次偶然的机会发现`object_getClass(id obj)`返回的结果是`NSKVONotifing_ObjectClass`,`[obj class]`返回的结果却是`ObjectClass`,它们的结果竟会不一致？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KVO后[obj class]与object_getClass(id obj)的结果竟会不一致？">
 <meta property="og:url" content="https://github.com/Easence/2016/07/09/KVO后[obj class]与object_getClass(id obj)的结果竟会不一致？/index.html">
 <meta property="og:site_name" content="EA88'Blog">
-<meta property="og:description" content="遇到的问题在做iOS项目过程中，一次偶然的机会发现object_getClass(id obj)返回的结果是NSKVONotifing_ObjectClass,[obj class]返回的结果却是ObjectClass,它们的结果竟会不一致？这不科学啊。因为实例的class方法，底层实际上就是调用runtime的object_getClass(id obj)方法实现的，所以正常的情况下这两个方法返">
-<meta property="og:updated_time" content="2016-10-17T03:44:28.000Z">
+<meta property="og:description" content="在做iOS项目过程中，一次偶然的机会发现`object_getClass(id obj)`返回的结果是`NSKVONotifing_ObjectClass`,`[obj class]`返回的结果却是`ObjectClass`,它们的结果竟会不一致？">
+<meta property="og:updated_time" content="2016-11-15T09:30:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KVO后[obj class]与object_getClass(id obj)的结果竟会不一致？">
-<meta name="twitter:description" content="遇到的问题在做iOS项目过程中，一次偶然的机会发现object_getClass(id obj)返回的结果是NSKVONotifing_ObjectClass,[obj class]返回的结果却是ObjectClass,它们的结果竟会不一致？这不科学啊。因为实例的class方法，底层实际上就是调用runtime的object_getClass(id obj)方法实现的，所以正常的情况下这两个方法返">
+<meta name="twitter:description" content="在做iOS项目过程中，一次偶然的机会发现`object_getClass(id obj)`返回的结果是`NSKVONotifing_ObjectClass`,`[obj class]`返回的结果却是`ObjectClass`,它们的结果竟会不一致？">
 
 
 
@@ -345,6 +345,10 @@
           
 
           
+              <div class="post-description">
+                  在做iOS项目过程中，一次偶然的机会发现`object_getClass(id obj)`返回的结果是`NSKVONotifing_ObjectClass`,`[obj class]`返回的结果却是`ObjectClass`,它们的结果竟会不一致？
+              </div>
+          
 
         </div>
       </header>
@@ -487,7 +491,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -495,7 +499,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -504,7 +508,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

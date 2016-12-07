@@ -84,55 +84,16 @@
 
 
 
-<meta name="description" content="Mach-O二进制文件Mach-O的文件头包含的内容:
-
-魔数
-CPU类型及其子类型
-文件类型
-用于加载器的“加载命令”的条数和大小
-动态链接器的标志
-
-
-使用otool -h /bin/ls来查看Mach-O的文件头。
-
-Mach-O的加载命令内核加载器会在加载的过程中使用这些命令来对进程进行一些设置：包括分配虚拟内存、创建主线程、启动动态链接器以及处理代码签名等工作。重要的命令有：
-
-LC_S">
+<meta name="description" content="内核加载器会在加载的过程中使用这些命令来对进程进行一些设置：包括分配虚拟内存、创建主线程、启动动态链接器以及处理代码签名等工作。重要的命令有...">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mach-O格式文件(用户态下的进程加载)">
 <meta property="og:url" content="https://github.com/Easence/2016/09/16/Mach-O格式文件(用户态下的进程加载)/index.html">
 <meta property="og:site_name" content="EA88'Blog">
-<meta property="og:description" content="Mach-O二进制文件Mach-O的文件头包含的内容:
-
-魔数
-CPU类型及其子类型
-文件类型
-用于加载器的“加载命令”的条数和大小
-动态链接器的标志
-
-
-使用otool -h /bin/ls来查看Mach-O的文件头。
-
-Mach-O的加载命令内核加载器会在加载的过程中使用这些命令来对进程进行一些设置：包括分配虚拟内存、创建主线程、启动动态链接器以及处理代码签名等工作。重要的命令有：
-
-LC_S">
-<meta property="og:updated_time" content="2016-10-18T13:03:42.000Z">
+<meta property="og:description" content="内核加载器会在加载的过程中使用这些命令来对进程进行一些设置：包括分配虚拟内存、创建主线程、启动动态链接器以及处理代码签名等工作。重要的命令有...">
+<meta property="og:updated_time" content="2016-11-15T09:31:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mach-O格式文件(用户态下的进程加载)">
-<meta name="twitter:description" content="Mach-O二进制文件Mach-O的文件头包含的内容:
-
-魔数
-CPU类型及其子类型
-文件类型
-用于加载器的“加载命令”的条数和大小
-动态链接器的标志
-
-
-使用otool -h /bin/ls来查看Mach-O的文件头。
-
-Mach-O的加载命令内核加载器会在加载的过程中使用这些命令来对进程进行一些设置：包括分配虚拟内存、创建主线程、启动动态链接器以及处理代码签名等工作。重要的命令有：
-
-LC_S">
+<meta name="twitter:description" content="内核加载器会在加载的过程中使用这些命令来对进程进行一些设置：包括分配虚拟内存、创建主线程、启动动态链接器以及处理代码签名等工作。重要的命令有...">
 
 
 
@@ -384,6 +345,10 @@ LC_S">
           
 
           
+              <div class="post-description">
+                  内核加载器会在加载的过程中使用这些命令来对进程进行一些设置：包括分配虚拟内存、创建主线程、启动动态链接器以及处理代码签名等工作。重要的命令有...
+              </div>
+          
 
         </div>
       </header>
@@ -582,7 +547,7 @@ LC_S">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -590,7 +555,7 @@ LC_S">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -599,7 +564,7 @@ LC_S">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

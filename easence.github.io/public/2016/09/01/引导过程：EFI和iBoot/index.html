@@ -84,28 +84,19 @@
 
 
 
-<meta name="description" content="什么是引导过程引导过程指的是：从计算机通电的那一瞬间到CPU开始执行操作系统代码时的整个过程。整个过程大概是这样子的：
-
-刚通电的时候，BIOS或者固件会加载一些自举代码（bootstrap）给CPU，这些代码会探测各种存在设备。
-接着寻找引导磁盘，在引导磁盘的活动分区的第一个扇区找到操作系统加载器。由于BIOS的局限性，只支持一个操作系统的加载，如果需要安装多个操作系统，则要接住第三方的引导加载">
+<meta name="description" content="引导过程指的是：从计算机通电的那一瞬间到CPU开始执行操作系统代码时的整个过程。整个过程大概是这样子的...">
 <meta property="og:type" content="article">
 <meta property="og:title" content="引导过程：EFI和iBoot">
 <meta property="og:url" content="https://github.com/Easence/2016/09/01/引导过程：EFI和iBoot/index.html">
 <meta property="og:site_name" content="EA88'Blog">
-<meta property="og:description" content="什么是引导过程引导过程指的是：从计算机通电的那一瞬间到CPU开始执行操作系统代码时的整个过程。整个过程大概是这样子的：
-
-刚通电的时候，BIOS或者固件会加载一些自举代码（bootstrap）给CPU，这些代码会探测各种存在设备。
-接着寻找引导磁盘，在引导磁盘的活动分区的第一个扇区找到操作系统加载器。由于BIOS的局限性，只支持一个操作系统的加载，如果需要安装多个操作系统，则要接住第三方的引导加载">
+<meta property="og:description" content="引导过程指的是：从计算机通电的那一瞬间到CPU开始执行操作系统代码时的整个过程。整个过程大概是这样子的...">
 <meta property="og:image" content="https://github.com/Easence/EADocuments/blob/master/Reading%20Notes/深入解析Mac%20OS%20X%20&%20iOS操作系统/Resources/Images/The%20iOS%20Boot%20Progress.png?raw=true">
 <meta property="og:image" content="https://github.com/Easence/EADocuments/blob/master/Reading%20Notes/深入解析Mac%20OS%20X%20&%20iOS操作系统/Resources/Images/OSX_Installer_files.png?raw=true">
 <meta property="og:image" content="https://github.com/Easence/EADocuments/blob/master/Reading%20Notes/深入解析Mac%20OS%20X%20&%20iOS操作系统/Resources/Images/ipsw.png?raw=true">
-<meta property="og:updated_time" content="2016-10-18T13:05:27.000Z">
+<meta property="og:updated_time" content="2016-11-15T09:29:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="引导过程：EFI和iBoot">
-<meta name="twitter:description" content="什么是引导过程引导过程指的是：从计算机通电的那一瞬间到CPU开始执行操作系统代码时的整个过程。整个过程大概是这样子的：
-
-刚通电的时候，BIOS或者固件会加载一些自举代码（bootstrap）给CPU，这些代码会探测各种存在设备。
-接着寻找引导磁盘，在引导磁盘的活动分区的第一个扇区找到操作系统加载器。由于BIOS的局限性，只支持一个操作系统的加载，如果需要安装多个操作系统，则要接住第三方的引导加载">
+<meta name="twitter:description" content="引导过程指的是：从计算机通电的那一瞬间到CPU开始执行操作系统代码时的整个过程。整个过程大概是这样子的...">
 <meta name="twitter:image" content="https://github.com/Easence/EADocuments/blob/master/Reading%20Notes/深入解析Mac%20OS%20X%20&%20iOS操作系统/Resources/Images/The%20iOS%20Boot%20Progress.png?raw=true">
 
 
@@ -358,6 +349,10 @@
           
 
           
+              <div class="post-description">
+                  引导过程指的是：从计算机通电的那一瞬间到CPU开始执行操作系统代码时的整个过程。整个过程大概是这样子的...
+              </div>
+          
 
         </div>
       </header>
@@ -560,7 +555,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -568,7 +563,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -577,7 +572,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -1,10 +1,12 @@
 ---
 title: 简约的iOS音乐播放UI控件
 date: 2016-05-24 18:46:59
+description: "该控件不包含音乐播放的逻辑，单纯的只是UI层面的展示。但可以结合下载、音乐播放逻辑，拼接成一个简易的播放器。代码托管在Github上，并支持cocoapods安装..."
 categories: 
  - Apple Development
  - iOS开发笔记
 tags:
+
 ---
 
 ## 这是一个什么样的控件

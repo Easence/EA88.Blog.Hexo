@@ -1,5 +1,6 @@
 ---
 title: Mach原语：一切以消息为媒介
+description: "在Mach中所有东西（Task、线程、虚拟内存等））都是对象。对象与对象之间通信**只能**通过端口收发消息..."
 categories: 
  - Apple Development
  - 深入解析Mac OS X && iOS操作系统笔记 

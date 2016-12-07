@@ -1,5 +1,6 @@
 ﻿---
 title: Mach-O格式文件(用户态下的进程加载)
+description: "内核加载器会在加载的过程中使用这些命令来对进程进行一些设置：包括分配虚拟内存、创建主线程、启动动态链接器以及处理代码签名等工作。重要的命令有..."
 categories: 
  - Apple Development
  - 深入解析Mac OS X && iOS操作系统笔记

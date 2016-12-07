@@ -1,6 +1,7 @@
 ---
 title: iOS支持懒加载的PageViewController
 date: 2016-09-02 00:12:18
+description: "相信大家都知道iOS原生的UIPageViewController，用它可以实现横向翻页的效果，同样也可以用来实现横向翻页的效果，配合TWPageTitleViewController使用，可以实现类似于腾讯新闻、今日头条这样的app的效果..."
 categories: 
  - Apple Development
  - iOS开发笔记

@@ -1,10 +1,12 @@
 ---
 title: 贯穿始终-launchd
+description: "launchd（PID 1）有内核直接启动，是用户态的第一个进程，其他进程都是由它直接或者间接的启动的。其他的launchd（比如其他用户远程登录后会对应创建一个launchd）都是由launchd（PID 1）启动的..."
 categories: 
  - Apple Development
  - 深入解析Mac OS X && iOS操作系统笔记 
 tags:
- - launchd
+ - launchd 
+ 
 ---
 
 ## launchd

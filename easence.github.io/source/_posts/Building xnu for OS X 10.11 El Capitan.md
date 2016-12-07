@@ -1,5 +1,6 @@
 ---
 title: Building xnu for OS X 10.11 El Capitan
+description: "此文只因为国内浏览[ssen's blog][1]需要翻墙，为了方便浏览从中拷贝了一份..."
 categories: 
  - Apple Development
  - 深入解析Mac OS X && iOS操作系统笔记 

@@ -256,6 +256,145 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/08/30/读书笔记之《如何阅读一本书》/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="EA88">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="EA88'Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/30/读书笔记之《如何阅读一本书》/" itemprop="url">
+                  读书笔记之《如何阅读一本书》
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-30T09:57:32+08:00">
+                2016-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/方法论/" itemprop="url" rel="index">
+                    <span itemprop="name">方法论</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          阅读的四个层次：基础阅读、检视阅读、分析阅读、主题阅读...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/30/读书笔记之《如何阅读一本书》/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/07/09/KVO后[obj class]与object_getClass(id obj)的结果竟会不一致？/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -362,33 +501,14 @@
 
       
         
-          
-            <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>在做iOS项目过程中，一次偶然的机会发现<code>object_getClass(id obj)</code>返回的结果是<code>NSKVONotifing_ObjectClass</code>,<code>[obj class]</code>返回的结果却是<code>ObjectClass</code>,它们的结果竟会不一致？<br>这不科学啊。因为实例的<code>class方法</code>，底层实际上就是调用runtime的<code>object_getClass(id obj)</code>方法实现的，所以正常的情况下这两个方法返回的结果应该是一致的。那是什么原因导致的呢？</p>
-<h2 id="KVO是元凶"><a href="#KVO是元凶" class="headerlink" title="KVO是元凶"></a>KVO是元凶</h2><ul>
-<li>从<code>object_getClass(id obj)</code>返回的结果<code>NSKVONotifing_ObjectClass</code>我们可以猜测，obj可能使用了KVO。那么我们要知道问题出在什么地方，就可以从KVO的实现原理入手。</li>
-<li>KVO的原理<blockquote>
-<p>其实也简单，就是利用OC的runtime特性，更改了isa只能只指向类，以下三步是必不可少的：</p>
-</blockquote>
-</li>
-</ul>
-<ol>
-<li>比如原先实例obj的isa指针指向的是ObjectClass，那么当你在第一次调用过<code>[obj addObserver:self forKeyPath:@“propertyA” options:context:]</code>方法后，runtime会创建一个新的类，类名以NSKVONotifing开头叫NSKVONotifing_ObjectClass，同时更改实例obj的isa的指针，将其指向NSKVONotifing_ObjectClass。</li>
-<li>在NSKVONotifing_ObjectClass中重写观察的属性propertyA的setter：<code>setProperA</code>，并在它里面调用 <code>- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&lt;NSString *,id&gt; *)change context:(void *)context</code>方法。这样当改变属性propertyA的值时，外面就会得到通知。</li>
-<li>在NSKVONotifing_ObjectClass中重写<code>- (Class) class</code>方法，返回原先的isa指向的类（在这个例子中就是ObjectClass）。这就是为什么<code>[obj class]</code>与<code>object_getClass(id obj)</code>返回的结果不一致的原因。可以通过下面的的方法打印出NSKVONotifing_ObjectClass的方法列表加以证明：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (void)printMethodList</div><div class="line">&#123;</div><div class="line">    Class cls =  object_getClass(self);</div><div class="line">    unsigned int outCount;</div><div class="line">    Method* methods = class_copyMethodList(cls,&amp;outCount);</div><div class="line">    </div><div class="line">    for (int i = 0; i &lt; outCount ; i++)</div><div class="line">    &#123;</div><div class="line">        SEL name = method_getName(methods[i]);</div><div class="line">        NSString *strName = [NSString  stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];</div><div class="line">        NSLog(@&quot;selName : %@&quot;,strName);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过研究这个问题，可以得到以下几个要点：</p>
-<ol>
-<li>查看OC Runtime可以知道，<code>[obj class]</code>的底层实现实际是： <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (Class) class &#123;</div><div class="line">    return object_getClass(self);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>,因此正常情况下<code>[obj class]</code>与<code>object_getClass(obj)</code>返回的结果应该是一致的。</p>
-<ol>
-<li>当使用KVO时，OC Runtime会改变isa，并重写了class方法。</li>
-<li>当发现<code>[obj class]</code>，<code>object_getClass(obj)</code>,两者结果不一致的时候，就要想到是不是有地方更改了<code>- (Class) class</code>的实现。</li>
-</ol>
-
-          
+          在做iOS项目过程中，一次偶然的机会发现`object_getClass(id obj)`返回的结果是`NSKVONotifing_ObjectClass`,`[obj class]`返回的结果却是`ObjectClass`,它们的结果竟会不一致？
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/09/KVO后[obj class]与object_getClass(id obj)的结果竟会不一致？/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -531,31 +651,14 @@
 
       
         
-          
-            <h2 id="这是一个什么样的控件"><a href="#这是一个什么样的控件" class="headerlink" title="这是一个什么样的控件"></a>这是一个什么样的控件</h2><p>该控件不包含音乐播放的逻辑，单纯的只是UI层面的展示。但可以结合下载、音乐播放逻辑，拼接成一个简易的播放器。代码托管在<a href="https://github.com/Easence/EAMiniAudioPlayerView">Github</a>上，并支持cocoapods安装。<br><img src="https://github.com/Easence/EADocuments/blob/master/Apple/iOS%20Development/OC/images/EAMiniAudioPlayer/1.gif?raw=true" alt="效果图"></p>
-<h2 id="主要功能介绍以及使用"><a href="#主要功能介绍以及使用" class="headerlink" title="主要功能介绍以及使用"></a>主要功能介绍以及使用</h2><ul>
-<li><p><strong>支持隐藏播放按钮、隐藏声音的波浪图标、以及隐藏文字。</strong></p>
-<blockquote>
-<p>可以通过设置<code>EAMiniAudioPlayerStyleConfig</code>的<code>playerStyle</code>属性来实现只展示某部分元素, EAMiniPlayerStyle是一个枚举：</p>
-</blockquote>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef NS_ENUM(NSUInteger, EAMiniPlayerStyle) &#123;</div><div class="line">EAMiniPlayerNormal = 1 &lt;&lt; 0,   //Has play button,sound icon</div><div class="line">EAMiniPlayerHidePlayButton = 1 &lt;&lt; 1, //Hide play button</div><div class="line">EAMiniPlayerHideSoundIcon = 1 &lt;&lt; 2, //Hide sound icon</div><div class="line">EAMiniPlayerHideText = 1 &lt;&lt; 3, //Hide text label</div><div class="line">&#125;;</div><div class="line"> EAMiniAudioPlayerStyleConfig *config = [EAMiniAudioPlayerStyleConfig defaultConfig];</div><div class="line"> config.playerStyle |= EAMiniPlayerHidePlayButton;</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>支持下载进度展示。</strong><br>实时的设置<code>EAMiniAudioPlayerView</code>的<code>downloadProgress</code>属性（取值在0和1之间）可以改变下载进度展示，结合下载逻辑可以实现音乐下载的效果。当<code>downloadProgress</code>的值达到1的时候会有调用<code>void(^downloadCompleted)(void)</code>这个block。</p>
-</li>
-<li><p><strong>支持播放进度展示。</strong><br>设置<code>EAMiniAudioPlayerView</code>的<code>playProgress</code>属性（取值在0和1之间）可以改变播放进度展示，结合音乐播放逻辑可以实现音乐播放的效果。当<code>playProgress</code>的值达到1的时候会有调用<code>void(^playCompleted)(void)</code>这个block。</p>
-</li>
-<li><p><strong>其他</strong><br>自定义圆角、内容的偏移、自定义颜色等。</p>
-</li>
-</ul>
-<h2 id="怎么使用"><a href="#怎么使用" class="headerlink" title="怎么使用"></a>怎么使用</h2><ul>
-<li><p><strong>使用cocoapods安装：</strong></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod install EAMiniAudioPlayerView</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>这是一个纯粹的UI控件，查看完成的demo可以移步到<a href="https://github.com/Easence/EAMiniAudioPlayerView">这里</a>。</p>
-<hr>
-
-          
+          该控件不包含音乐播放的逻辑，单纯的只是UI层面的展示。但可以结合下载、音乐播放逻辑，拼接成一个简易的播放器。代码托管在Github上，并支持cocoapods安装...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/24/简约的iOS音乐播放UI控件/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -698,27 +801,14 @@
 
       
         
-          
-            <h2 id="初衷"><a href="#初衷" class="headerlink" title="初衷"></a>初衷</h2><p>最近项目新功能更改较大，产品童鞋要求加入新功能引导，于是一口气花了两天的时间做了一个引导页，当然加上后面的修修补补的时间，就不只两天了，不过这事情其实是一劳永逸的事情，值得做。同时为了能够更好的复用，我把它做成了pod库，项目地址在这里：<a href="https://github.com/Easence/EAFeatureGuideView">EAFeatureGuideView</a>。</p>
-<h2 id="EAFeatureGuideView能做什么"><a href="#EAFeatureGuideView能做什么" class="headerlink" title="EAFeatureGuideView能做什么"></a>EAFeatureGuideView能做什么</h2><p>EAFeatureGuideView是UIView的一个扩展，用来做新功能引导提示，达到这样的效果：</p>
-<ul>
-<li>局部区域高亮（可以设置圆角）</li>
-<li>有箭头指向高亮区域</li>
-<li>可以设置一段介绍文字（可以是图片、也可以是文字）</li>
-<li>可以对应一个按钮，可以通过配置事件、标题。<br>最后的效果如下：<br><img src="https://github.com/Easence/EADocuments/blob/master/Apple/iOS%20Development/OC/images/EAFeatureGuideView/1.png?raw=true" alt="效果图1"><br><img src="https://github.com/Easence/EADocuments/blob/master/Apple/iOS%20Development/OC/images/EAFeatureGuideView/2.png?raw=true" alt="效果图2"></li>
-</ul>
-<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>如果安装了Cocoapods,可以在Podfile中加入如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pod &apos;EAFeatureGuideView</div><div class="line">pod install</div></pre></td></tr></table></figure>
-<p>接着在需要展示提示的页面引入头文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &quot;UIView+EAFeatureGuideView.h&quot;</div></pre></td></tr></table></figure>
-<p>最后添加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">EAFeatureItem *item = [[EAFeatureItem alloc] initWithFocusView:self.exampleCell focusCornerRadius:0 focusInsets:UIEdgeInsetsZero];</div><div class="line">item.introduce = @&quot;txt_feature_post_activity_4.1.png&quot;;</div><div class="line">item.actionTitle = @&quot;太好了&quot;;</div><div class="line">item.action = ^(id sender)&#123;</div><div class="line">        NSLog(@&quot;touched ..&quot;);  </div><div class="line">    &#125;;</div><div class="line"></div><div class="line">EAFeatureItem *recents = [[EAFeatureItem alloc] initWithFocusRect:CGRectMake(centerX - 25, centerY - 25, 50, 50) focusCornerRadius:25 focusInsets:UIEdgeInsetsZero];    </div><div class="line">recents.introduce = @&quot;recents&quot;;</div><div class="line"></div><div class="line">[self.navigationController.view showWithFeatureItems:@[item, recents] saveKeyName:@&quot;keyName&quot; inVersion:nil];</div></pre></td></tr></table></figure></p>
-<h2 id="可以优化的地方"><a href="#可以优化的地方" class="headerlink" title="可以优化的地方"></a>可以优化的地方</h2><ul>
-<li>介绍文案没有支持多颜色。</li>
-<li>当高亮区域是圆形的时候，箭头的指向没有对中圆心。</li>
-</ul>
-<hr>
-
-          
+          最近项目新功能更改较大，产品童鞋要求加入新功能引导，于是一口气花了两天的时间做了一个引导页，当然加上后面的修修补补的时间，就不只两天了，不过这事情其实是一劳永逸的事情，值得做。同时为了能够更好的复用，我把它做成了pod库...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/29/iOS引导页的镂空效果/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1015,24 +1105,14 @@
 
       
         
-          
-            <h2 id="什么是Thrift"><a href="#什么是Thrift" class="headerlink" title="什么是Thrift"></a>什么是Thrift</h2><p>Thrift是一种接口描述语言和二进制通讯协议，它被用来定义和创建跨语言的服务，这是维基百科的描述。简单来说就是你可以按照Thrift定义语法编写.thrift,然后用Thrift命令行生成各种语言的代码，比如OC、Java、C++、JS，调用这些代码就可以完成客户端与服务器的通信了，不需要自己去写网络请求、数据解析等接口。更多详情可以通过<a href="https://zh.wikipedia.org/wiki/Thrift" target="_blank" rel="external">这里</a>了解。</p>
-<h2 id="为什么使用Thrift"><a href="#为什么使用Thrift" class="headerlink" title="为什么使用Thrift"></a>为什么使用Thrift</h2><p>在本人的实际项目中主要考虑到这两个优点：</p>
-<ul>
-<li>RPC。通过简单定义Thrift描述语言文件，使用Thrift -gen命令可以生成多种语言的代码，这些代码包含了网络通信,数据编解码的功能。这就免去了前后台编写这部分繁琐的代码，同时也统一了前后台的实现逻辑。</li>
-<li>Thrift的二进制数据的编码比json更加紧凑、减少了无用的数据的传输。这也是本文讨论的重点。</li>
-</ul>
-<h2 id="Thrift的数据编解码"><a href="#Thrift的数据编解码" class="headerlink" title="Thrift的数据编解码"></a>Thrift的数据编解码</h2><p>我们知道json中一个对象类似于这样的：{“key”:”content”},但实际上这个对象只有“content”才是我们真正想要的数据，而“key”这个字符串并不是我们实际需要的，只是为了做一个标记，方便我们查找“content”。而Thrift则可以省去“key”这个多余的字符串。这是怎么做到的呢？首先我们在Example.thrift文件中定义了这么一个结构：<br><figure class="highlight plain"><figcaption><span>ExamConfig</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	1:required	i64	actionId	 </div><div class="line">	2:required  string	value</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>然后用命令thrift -gen cocoa编译出来的OC代码，我们随便打开一个Thrift编出来的对象可以看到都会有一个write:方法和一个read:方法，例如：<br><img src="https://github.com/Easence/EADocuments/blob/master/Apple/iOS%20Development/OC/images/Thrift_protocol/1.png?raw=true" alt="write:方法"><br><img src="https://github.com/Easence/EADocuments/blob/master/Apple/iOS%20Development/OC/images/Thrift_protocol/2.png?raw=true" alt="read:方法"></p>
-<p>我们看到1中<code>[outProtocol writeFieldBeginWithName: @&quot;actionId&quot; type: TType_I64 fieldID: 1];</code>的实现是这样的：<br><figure class="highlight plain"><figcaption><span>(void) writeFieldBeginWithName: (NSString *) name</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">                            type: (int) fieldType</div><div class="line">                         fieldID: (int) fieldID</div><div class="line">&#123;</div><div class="line">  [self writeByte: CheckedCastIntToUInt8(fieldType)];</div><div class="line">  [self writeI16: CheckedCastIntToUInt8(fieldID)];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>注意到参数name实际中并没有被使用，只使用了fieldType（数据类型）、fieldID（协议定义中的序号,比如1:required    i64    actionId     中的1）。再看看2中<figure class="highlight plain"><figcaption><span>readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];```的实现：</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">```- (void) readFieldBeginReturningName: (NSString **) name</div><div class="line">                                type: (int *) fieldType</div><div class="line">                             fieldID: (int *) fieldID</div><div class="line">&#123;</div><div class="line">  if (name != NULL) &#123;</div><div class="line">    *name = nil;</div><div class="line">  &#125;</div><div class="line">  int ft = [self readByte];</div><div class="line">  if (fieldType != NULL) &#123;</div><div class="line">    *fieldType = ft;</div><div class="line">  &#125;</div><div class="line">  if (ft != TType_STOP) &#123;</div><div class="line">    int fid = [self readI16];</div><div class="line">    if (fieldID != NULL) &#123;</div><div class="line">      *fieldID = fid;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>同样的也没有使用到参数name。<br>我们再看下面这个例子：<br>假如服务器使用的ExamConfig定义是这样的：<br><figure class="highlight plain"><figcaption><span>ExamConfig</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	1:required	i64	actionId	 </div><div class="line">	2:required  string	value</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>而客户端使用的ExamConfig定义是这样的：<br><figure class="highlight plain"><figcaption><span>ExamConfig</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	1:required	i64	actionId2	 </div><div class="line">	2:required  string	value2</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>请问服务器发送ExamConfig数据到客户端客户端能正确的解析出数据吗？答案是YES。</p>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>这就说明了我们定义thrift的结构里的属性名称实际上在thrift数据二进制编解码是被忽略的（thrift的json编解码未验证），这个名称的作用只是作为生成的OC代码类的属性名称。这也解释了为什么Thrift的二进制编码会比平时使用的json更省流量。同时也说明了只要我们在.thrift文件中定义struct的时候保证struct的属性的顺序不变，即使通信双方使用了各自使用不同的属性名称也不会有问题。</p>
-<hr>
-
-          
+          Thrift是一种接口描述语言和二进制通讯协议，它被用来定义和创建跨语言的服务，这是维基百科的描述。简单来说就是你可以按照Thrift定义语法编写.thrift,然后用Thrift命令行生成各种语言的代码...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/16/Thrift的二进制数据编解码-以OC为例/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1105,7 +1185,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1113,7 +1193,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1122,7 +1202,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -1,6 +1,7 @@
 ---
 title: Thrift的二进制数据编解码--以OC为例
 date: 2016-04-16 22:56:14
+description: "Thrift是一种接口描述语言和二进制通讯协议，它被用来定义和创建跨语言的服务，这是维基百科的描述。简单来说就是你可以按照Thrift定义语法编写.thrift,然后用Thrift命令行生成各种语言的代码..."
 categories: 
  - Apple Development
  - iOS开发笔记

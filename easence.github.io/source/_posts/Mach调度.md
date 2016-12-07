@@ -1,5 +1,7 @@
 ﻿---
 title: Mach调度
+description: "抢占模式: 1. 显示抢占：线程自己管理自己对资源的占用，即，自己管理自己在什么让出CPU，或者什么时候占用CPU。缺点:
+2. 隐式抢占：调度器管理线程的执行。"
 categories: 
  - Apple Development
  - 深入解析Mac OS X && iOS操作系统笔记

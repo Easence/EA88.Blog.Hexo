@@ -1,11 +1,11 @@
 ---
 title: 引导过程：EFI和iBoot
+description: "引导过程指的是：从计算机通电的那一瞬间到CPU开始执行操作系统代码时的整个过程。整个过程大概是这样子的..."
 categories: 
  - Apple Development
  - 深入解析Mac OS X && iOS操作系统笔记
 tags:
  - 引导过程
- description: "引导过程指的是：从计算机通电的那一瞬间到CPU开始执行操作系统代码时的整个过程。整个过程大概是这样子的..."
 ---
 
 ## 什么是引导过程

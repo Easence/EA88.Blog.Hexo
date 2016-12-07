@@ -1,6 +1,7 @@
 ﻿---
 title: KVO后[obj class]与object_getClass(id obj)的结果竟会不一致？
 date: 2016-07-09 14:22:30
+description: "在做iOS项目过程中，一次偶然的机会发现`object_getClass(id obj)`返回的结果是`NSKVONotifing_ObjectClass`,`[obj class]`返回的结果却是`ObjectClass`,它们的结果竟会不一致？"
 categories: 
  - Apple Development
  - iOS开发笔记

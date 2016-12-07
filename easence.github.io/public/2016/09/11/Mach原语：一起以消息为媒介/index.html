@@ -84,50 +84,17 @@
 
 
 
-<meta name="description" content="1. Mach概述1.1 Mach设计原则
-在Mach中所有东西（Task、线程、虚拟内存等））都是对象。
-对象与对象之间通信只能通过端口收发消息。
-
-1.2 Mach设计目标内核为了保持极简，只做如下的事情：
-
-“控制点”或执行单元的管理。
-线程或线程组（Task）的资源分配。
-虚拟内存的分配和管理。
-底层物理资源–即CPU、内存和任何物理设备的分配。
-
-2. Mach消息2.1 简单消息最基本">
+<meta name="description" content="在Mach中所有东西（Task、线程、虚拟内存等））都是对象。对象与对象之间通信**只能**通过端口收发消息...">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mach原语：一切以消息为媒介">
 <meta property="og:url" content="https://github.com/Easence/2016/09/11/Mach原语：一起以消息为媒介/index.html">
 <meta property="og:site_name" content="EA88'Blog">
-<meta property="og:description" content="1. Mach概述1.1 Mach设计原则
-在Mach中所有东西（Task、线程、虚拟内存等））都是对象。
-对象与对象之间通信只能通过端口收发消息。
-
-1.2 Mach设计目标内核为了保持极简，只做如下的事情：
-
-“控制点”或执行单元的管理。
-线程或线程组（Task）的资源分配。
-虚拟内存的分配和管理。
-底层物理资源–即CPU、内存和任何物理设备的分配。
-
-2. Mach消息2.1 简单消息最基本">
+<meta property="og:description" content="在Mach中所有东西（Task、线程、虚拟内存等））都是对象。对象与对象之间通信**只能**通过端口收发消息...">
 <meta property="og:image" content="https://github.com/Easence/EADocuments/blob/master/Reading%20Notes/深入解析Mac%20OS%20X%20&%20iOS操作系统/Resources/Images/MIG_opt.png?raw=true">
-<meta property="og:updated_time" content="2016-10-18T13:04:09.000Z">
+<meta property="og:updated_time" content="2016-11-15T09:30:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mach原语：一切以消息为媒介">
-<meta name="twitter:description" content="1. Mach概述1.1 Mach设计原则
-在Mach中所有东西（Task、线程、虚拟内存等））都是对象。
-对象与对象之间通信只能通过端口收发消息。
-
-1.2 Mach设计目标内核为了保持极简，只做如下的事情：
-
-“控制点”或执行单元的管理。
-线程或线程组（Task）的资源分配。
-虚拟内存的分配和管理。
-底层物理资源–即CPU、内存和任何物理设备的分配。
-
-2. Mach消息2.1 简单消息最基本">
+<meta name="twitter:description" content="在Mach中所有东西（Task、线程、虚拟内存等））都是对象。对象与对象之间通信**只能**通过端口收发消息...">
 <meta name="twitter:image" content="https://github.com/Easence/EADocuments/blob/master/Reading%20Notes/深入解析Mac%20OS%20X%20&%20iOS操作系统/Resources/Images/MIG_opt.png?raw=true">
 
 
@@ -380,6 +347,10 @@
           
 
           
+              <div class="post-description">
+                  在Mach中所有东西（Task、线程、虚拟内存等））都是对象。对象与对象之间通信**只能**通过端口收发消息...
+              </div>
+          
 
         </div>
       </header>
@@ -557,7 +528,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -565,7 +536,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -574,7 +545,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
