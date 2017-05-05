@@ -266,6 +266,159 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/12/28/网络七层协议（结合操作系统来了解）/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="EA88">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="EA88'Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/28/网络七层协议（结合操作系统来了解）/" itemprop="url">
+                  网络七层协议（结合操作系统来了解）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-28T15:41:22+08:00">
+                2016-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apple-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Apple Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apple-Development/深入解析Mac-OS-X-iOS操作系统笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">深入解析Mac OS X && iOS操作系统笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="用户态"><a href="#用户态" class="headerlink" title="用户态"></a>用户态</h2><h3 id="第7层：应用层"><a href="#第7层：应用层" class="headerlink" title="第7层：应用层"></a>第7层：应用层</h3><p>  定义在该层的协议：TELNET，HTTP,FTP,NFS,SMTP</p>
+<h3 id="第6层：表示层"><a href="#第6层：表示层" class="headerlink" title="第6层：表示层"></a>第6层：表示层</h3><p>  数据的表示形式，如：加密，ASCII等</p>
+<h3 id="第5层：会话层"><a href="#第5层：会话层" class="headerlink" title="第5层：会话层"></a>第5层：会话层</h3><p>  Sockets,socket其实就是一个数据结构，里面包含协议的指针、协议块指针、数据收发的缓冲区等，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">struct socket &#123;</div><div class="line">    ...</div><div class="line">    void *so_pcb;           //协议控制块</div><div class="line">    struct protosw *so_proto;  //协议指针，如：PF_INET（ipv4套接字）、PF_SYSTEM(本地系统通信套接字)</div><div class="line">    struct sockbuf &#123;...&#125; so_rcv; //接收队列</div><div class="line">                        so_send; //发送队列</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="内核态"><a href="#内核态" class="headerlink" title="内核态"></a>内核态</h2><h3 id="第4层：传输层"><a href="#第4层：传输层" class="headerlink" title="第4层：传输层"></a>第4层：传输层</h3><p>  定义在该层的协议：TCP，UDP，SPX</p>
+<h3 id="第3层：网络层"><a href="#第3层：网络层" class="headerlink" title="第3层：网络层"></a>第3层：网络层</h3><p>  定义在该层的协议：IP,IPX等。(第3层隧道协议：IPSec、GRE等)</p>
+<h3 id="第2层：数据链路层"><a href="#第2层：数据链路层" class="headerlink" title="第2层：数据链路层"></a>第2层：数据链路层</h3><p>  它定义了在单个链路上如何传输数据。这些协议与被讨论的各种介质有关。示例：ATM，FDDI，MAC等。(第2层隧道协议：PPTP、L2F、L2TP)</p>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><h3 id="第1层：物理层"><a href="#第1层：物理层" class="headerlink" title="第1层：物理层"></a>第1层：物理层</h3><p>  硬件相关</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/12/23/TLS/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -306,7 +459,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-23T10:02:10+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-23T11:55:05+08:00">
                 2016-12-23
               </time>
             
@@ -477,7 +630,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/12/21/TCP-IP-detail/">
+  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/12/22/TCP-IP-detail/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="EA88">
@@ -502,7 +655,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/12/21/TCP-IP-detail/" itemprop="url">
+                <a class="post-title-link" href="/2016/12/22/TCP-IP-detail/" itemprop="url">
                   TCP/IP协议的理解与调优
                 </a>
               
@@ -517,8 +670,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-21T15:51:14+08:00">
-                2016-12-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-22T09:46:58+08:00">
+                2016-12-22
               </time>
             
 
@@ -626,6 +779,222 @@
 <li><strong>重用TCP连接</strong>，把慢启动和其他拥塞控制机制的影响降到最低。。</li>
 </ul>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>通过上面的介绍，我可以知道影响TCP性能的因素很多，有TCP的3次握手、流量控制、慢启动、拥塞预防等，这些因素既是TCP的特性也是导致TCP延迟的原因，让人又爱又恨。然而，为了让我们的应用快起来，我们又不得不尝试去优化TCP的速度，可悲的是过程很艰难，可喜的是并不是无计可施，针对TCP不同阶段的不同因素我们可以采取相应的措施，对其加以优化，便可以减少TCP特性所带来的网络延迟。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/12/21/B-Tree_and_HFS+/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="EA88">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="EA88'Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/21/B-Tree_and_HFS+/" itemprop="url">
+                  基于B树的HFS+文件系统
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-21T16:09:38+08:00">
+                2016-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apple-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Apple Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apple-Development/深入解析Mac-OS-X-iOS操作系统笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">深入解析Mac OS X && iOS操作系统笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="B树基础"><a href="#B树基础" class="headerlink" title="B树基础"></a>B树基础</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>网络上或者算法书上可以看到很多对B树的定义，比如这篇文章：<a href="http://taop.marchtea.com/03.02.html" target="_blank" rel="external">《B树》</a>。在理解这个定义的时候，我们需要理解这些概念：</p>
+<ul>
+<li>key：树节点的键值（关键字），同一个节点的键值应该是顺序排列的。</li>
+<li>度：一个节点子树的数目。</li>
+<li>阶：所有节点的子树数目最大值。用m表示。</li>
+</ul>
+<p>然后再看定义：</p>
+<ul>
+<li>树中每个结点最多含有m个孩子（m&gt;=2）；</li>
+<li>除根结点和叶子结点外，其它每个结点至少有[ceil(m / 2)]个孩子（其中ceil(x)是一个取上限的函数）；</li>
+<li>根结点至少有2个孩子（除非B树只包含一个结点：根结点）；</li>
+<li>所有叶子结点都出现在同一层，叶子结点不包含任何关键字信息(可以看做是外部结点或查询失败的结点，指向这些结点的指针都为null)；（注：叶子节点只是没有孩子和指向孩子的指针，这些节点也存在，也有元素。类似红黑树中，每一个NULL指针即当做叶子结点，只是没画出来而已）。</li>
+<li>每个非终端结点中包含有n个关键字信息： (n，P0，K1，P1，K2，P2，……，Kn，Pn)。其中： <ol>
+<li>Ki (i=1…n)为关键字，且关键字按顺序升序排序K(i-1)&lt; Ki。 </li>
+<li>Pi为指向子树根的结点，且指针P(i-1)指向子树种所有结点的关键字均小于Ki，但都大于K(i-1)。 </li>
+<li>关键字的个数n必须满足： [ceil(m / 2)-1]&lt;= n &lt;= m-1。比如有j个孩子的非叶结点恰好有j-1个关键码。</li>
+</ol>
+</li>
+</ul>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><ul>
+<li>如果叶子结点空间足够，即该结点的关键字数小于m-1，则直接插入在叶子结点的左边或右边；</li>
+<li>如果空间满了以致没有足够的空间去添加新的元素，即该结点的关键字数已经有了m个，则需要将该 结点 进行“分裂”，将一半数量的关键字元素分裂到新的其相邻右结点中，中间关键字元素上移到父结点中，而且当结点中关键元素向右移动了，相关的指针也需要向右移。</li>
+<li>此外，如果在上述中间关键字上移到父结点的过程中，导致根结点空间满了，那么根结点也要进行分裂操作，这样原来的根结点中的中间关键字元素向上移动到新的根结点中，因此导致树的高度增加一层。</li>
+</ul>
+<blockquote>
+<p>具体实例见<a href="http://taop.marchtea.com/03.02.html" target="_blank" rel="external">《B树》</a>中的“插入”小节。</p>
+</blockquote>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>删除操作相对于插入操作要考虑的情况多点。</p>
+<ul>
+<li>首先查找B树中需删除的元素,如果该元素在B树中存在，则将该元素在其结点中进行删除，如果删除该元素后，首先判断该元素是否有左右孩子结点<ol>
+<li>如果有，则上移孩子结点中的某相近元素(“左孩子最右边的节点”或“右孩子最左边的节点”)到父节点中，然后是移动之后的情况；</li>
+<li>如果没有，直接删除后，移动之后的情况。</li>
+</ol>
+</li>
+<li>删除元素，移动相应元素之后，如果某结点中元素数目（即关键字数）小于 ceil(m/2)-1 ，则需要看其某相邻兄弟结点是否丰满（结点中元素个数大于ceil(m/2)-1）<ol>
+<li>如果丰满，则向父节点借一个元素来满足条件；</li>
+<li>如果其相邻兄弟都刚脱贫，即借了之后其结点数目小于ceil(m/2)-1，则该结点与其相邻的某一兄弟结点进行“合并”成一个结点，以此来满足条件。</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>具体实例见<a href="http://taop.marchtea.com/03.02.html" target="_blank" rel="external">《B树》</a>中的“删除”小节。</p>
+</blockquote>
+<h2 id="B树的优点"><a href="#B树的优点" class="headerlink" title="B树的优点"></a>B树的优点</h2><p>B树是一棵多叉树，在查找数据的过程中最优的情况下时间复杂度是logm(n),最坏情况下是logm/2(n)，（m表示B数的阶），因此B树大部分情况下能提供指数时间的复杂度。对于文件系统的搜索、删除、插入、更新、随机访问都能提供较快，较稳定的时间复杂度。</p>
+<h2 id="B树与Hash的对比"><a href="#B树与Hash的对比" class="headerlink" title="B树与Hash的对比"></a>B树与Hash的对比</h2><p>在做对比前，我们已经理解Hash以及B树的查找原理分别是怎样的。</p>
+<ul>
+<li>Hash相当于把key通过hash函数计算，得到key的hash值,再用这个hash值做指针，查找hash表中是否存在key，如果存在就返回 key所对应的value，选定一个好的hash函数很重要，好的hash函数可以使计算出的hash值分布均匀，降低冲突，只有冲突减小了，才会降低 hash表的查找时间。</li>
+<li>B-tree完全基于key的比较，和二叉树相同的道理，相当于建个排序后的数据集，使用二分法查找算法，实际上也非常快，而且受数据量增长影响非常小。</li>
+</ul>
+<p>为什么很多数据库或文件系统采用了B树做数据结构，而不采用hash？</p>
+<ul>
+<li>Hash索引仅满足“=”、“IN”和“&lt;=&gt;”查询，不能使用范围查询。</li>
+<li>Hash索引无法被用来进行数据的排序操作。</li>
+<li>Hash索引遇到大量Hash值相等的情况后性能并不一定就会比B-Tree索引高。</li>
+</ul>
+<h1 id="HFS-文件系统"><a href="#HFS-文件系统" class="headerlink" title="HFS+文件系统"></a>HFS+文件系统</h1><p>HFS+文件系统采用了6个特殊的文件来维护自己的数据，其中有四个是B树，分别是：</p>
+<ul>
+<li><strong>编录B树</strong>：包含文件系统的所有目录以及文件，也就是说用户对文件的所有操作都会影响到这个文件。</li>
+<li><strong>属性B树</strong>：用于支持文件扩展属性。</li>
+<li><strong>extent溢出B树</strong>：用于超过8个碎片（或extent，一个extent表示一组连续的分配块）的文件。</li>
+<li><strong>热文件B树</strong>：用户频繁访问的小文件。</li>
+</ul>
+<p>两个文件是：</p>
+<ul>
+<li><strong>分配文件</strong>：一个位图，包含文件系统中所有数据块的使用情况，其中每一位代表一个数据块的使用情况。</li>
+<li><strong>启动文件</strong>：一个可执行文件，用于引导操作系统。MacOS X已经弃用了，其他操作系统可以使用。</li>
+</ul>
+<p>如果HFS+挂载的时候启用了日志功能，那么还会启用一个日志文件。</p>
+<h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h2><ol>
+<li><a href="http://taop.marchtea.com/03.02.html" target="_blank" rel="external">B树</a></li>
+</ol>
 
           
         
@@ -909,222 +1278,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/12/07/B-Tree_and_HFS+/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="EA88">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="EA88'Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/07/B-Tree_and_HFS+/" itemprop="url">
-                  基于B树的HFS+文件系统
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-07T11:40:10+08:00">
-                2016-12-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Apple-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Apple Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Apple-Development/深入解析Mac-OS-X-iOS操作系统笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">深入解析Mac OS X && iOS操作系统笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="B树基础"><a href="#B树基础" class="headerlink" title="B树基础"></a>B树基础</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>网络上或者算法书上可以看到很多对B树的定义，比如这篇文章：<a href="http://taop.marchtea.com/03.02.html" target="_blank" rel="external">《B树》</a>。在理解这个定义的时候，我们需要理解这些概念：</p>
-<ul>
-<li>key：树节点的键值（关键字），同一个节点的键值应该是顺序排列的。</li>
-<li>度：一个节点子树的数目。</li>
-<li>阶：所有节点的子树数目最大值。用m表示。</li>
-</ul>
-<p>然后再看定义：</p>
-<ul>
-<li>树中每个结点最多含有m个孩子（m&gt;=2）；</li>
-<li>除根结点和叶子结点外，其它每个结点至少有[ceil(m / 2)]个孩子（其中ceil(x)是一个取上限的函数）；</li>
-<li>根结点至少有2个孩子（除非B树只包含一个结点：根结点）；</li>
-<li>所有叶子结点都出现在同一层，叶子结点不包含任何关键字信息(可以看做是外部结点或查询失败的结点，指向这些结点的指针都为null)；（注：叶子节点只是没有孩子和指向孩子的指针，这些节点也存在，也有元素。类似红黑树中，每一个NULL指针即当做叶子结点，只是没画出来而已）。</li>
-<li>每个非终端结点中包含有n个关键字信息： (n，P0，K1，P1，K2，P2，……，Kn，Pn)。其中： <ol>
-<li>Ki (i=1…n)为关键字，且关键字按顺序升序排序K(i-1)&lt; Ki。 </li>
-<li>Pi为指向子树根的结点，且指针P(i-1)指向子树种所有结点的关键字均小于Ki，但都大于K(i-1)。 </li>
-<li>关键字的个数n必须满足： [ceil(m / 2)-1]&lt;= n &lt;= m-1。比如有j个孩子的非叶结点恰好有j-1个关键码。</li>
-</ol>
-</li>
-</ul>
-<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><ul>
-<li>如果叶子结点空间足够，即该结点的关键字数小于m-1，则直接插入在叶子结点的左边或右边；</li>
-<li>如果空间满了以致没有足够的空间去添加新的元素，即该结点的关键字数已经有了m个，则需要将该 结点 进行“分裂”，将一半数量的关键字元素分裂到新的其相邻右结点中，中间关键字元素上移到父结点中，而且当结点中关键元素向右移动了，相关的指针也需要向右移。</li>
-<li>此外，如果在上述中间关键字上移到父结点的过程中，导致根结点空间满了，那么根结点也要进行分裂操作，这样原来的根结点中的中间关键字元素向上移动到新的根结点中，因此导致树的高度增加一层。</li>
-</ul>
-<blockquote>
-<p>具体实例见<a href="http://taop.marchtea.com/03.02.html" target="_blank" rel="external">《B树》</a>中的“插入”小节。</p>
-</blockquote>
-<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>删除操作相对于插入操作要考虑的情况多点。</p>
-<ul>
-<li>首先查找B树中需删除的元素,如果该元素在B树中存在，则将该元素在其结点中进行删除，如果删除该元素后，首先判断该元素是否有左右孩子结点<ol>
-<li>如果有，则上移孩子结点中的某相近元素(“左孩子最右边的节点”或“右孩子最左边的节点”)到父节点中，然后是移动之后的情况；</li>
-<li>如果没有，直接删除后，移动之后的情况。</li>
-</ol>
-</li>
-<li>删除元素，移动相应元素之后，如果某结点中元素数目（即关键字数）小于 ceil(m/2)-1 ，则需要看其某相邻兄弟结点是否丰满（结点中元素个数大于ceil(m/2)-1）<ol>
-<li>如果丰满，则向父节点借一个元素来满足条件；</li>
-<li>如果其相邻兄弟都刚脱贫，即借了之后其结点数目小于ceil(m/2)-1，则该结点与其相邻的某一兄弟结点进行“合并”成一个结点，以此来满足条件。</li>
-</ol>
-</li>
-</ul>
-<blockquote>
-<p>具体实例见<a href="http://taop.marchtea.com/03.02.html" target="_blank" rel="external">《B树》</a>中的“删除”小节。</p>
-</blockquote>
-<h2 id="B树的优点"><a href="#B树的优点" class="headerlink" title="B树的优点"></a>B树的优点</h2><p>B树是一棵多叉树，在查找数据的过程中最优的情况下时间复杂度是logm(n),最坏情况下是logm/2(n)，（m表示B数的阶），因此B树大部分情况下能提供指数时间的复杂度。对于文件系统的搜索、删除、插入、更新、随机访问都能提供较快，较稳定的时间复杂度。</p>
-<h2 id="B树与Hash的对比"><a href="#B树与Hash的对比" class="headerlink" title="B树与Hash的对比"></a>B树与Hash的对比</h2><p>在做对比前，我们已经理解Hash以及B树的查找原理分别是怎样的。</p>
-<ul>
-<li>Hash相当于把key通过hash函数计算，得到key的hash值,再用这个hash值做指针，查找hash表中是否存在key，如果存在就返回 key所对应的value，选定一个好的hash函数很重要，好的hash函数可以使计算出的hash值分布均匀，降低冲突，只有冲突减小了，才会降低 hash表的查找时间。</li>
-<li>B-tree完全基于key的比较，和二叉树相同的道理，相当于建个排序后的数据集，使用二分法查找算法，实际上也非常快，而且受数据量增长影响非常小。</li>
-</ul>
-<p>为什么很多数据库或文件系统采用了B树做数据结构，而不采用hash？</p>
-<ul>
-<li>Hash索引仅满足“=”、“IN”和“&lt;=&gt;”查询，不能使用范围查询。</li>
-<li>Hash索引无法被用来进行数据的排序操作。</li>
-<li>Hash索引遇到大量Hash值相等的情况后性能并不一定就会比B-Tree索引高。</li>
-</ul>
-<h1 id="HFS-文件系统"><a href="#HFS-文件系统" class="headerlink" title="HFS+文件系统"></a>HFS+文件系统</h1><p>HFS+文件系统采用了6个特殊的文件来维护自己的数据，其中有四个是B树，分别是：</p>
-<ul>
-<li><strong>编录B树</strong>：包含文件系统的所有目录以及文件，也就是说用户对文件的所有操作都会影响到这个文件。</li>
-<li><strong>属性B树</strong>：用于支持文件扩展属性。</li>
-<li><strong>extent溢出B树</strong>：用于超过8个碎片（或extent，一个extent表示一组连续的分配块）的文件。</li>
-<li><strong>热文件B树</strong>：用户频繁访问的小文件。</li>
-</ul>
-<p>两个文件是：</p>
-<ul>
-<li><strong>分配文件</strong>：一个位图，包含文件系统中所有数据块的使用情况，其中每一位代表一个数据块的使用情况。</li>
-<li><strong>启动文件</strong>：一个可执行文件，用于引导操作系统。MacOS X已经弃用了，其他操作系统可以使用。</li>
-</ul>
-<p>如果HFS+挂载的时候启用了日志功能，那么还会启用一个日志文件。</p>
-<h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h2><ol>
-<li><a href="http://taop.marchtea.com/03.02.html" target="_blank" rel="external">B树</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/11/28/经典排序算法/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1226,7 +1379,7 @@
 <li>取出A的第一个元素与B的第一元素比较，取出小的放入数组C中。</li>
 <li>重复步骤2，直到A、B数组至少一个为空，如果A为空，则拷贝B剩余元素到C中；B为空，则拷贝A剩余元素到C中。</li>
 </ol>
-<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>采用了分治的思想，递归的将需要排序的数组对半的分成两个子数组，并对这两个数组进行合并。<strong>当被拆分的数组的元素个数小于等于1个的时候，那么这个两个子数组内部就一定是有序的，因此合并起来的数组也是有序的</strong>。接下来就是重复以上提到的“基本原理”，进行N轮的合并操作。</p>
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>采用了分治的思想，递归的将需要排序的数组对半的分成两个子数组，并对这两个数组进行合并。<strong>当被拆分的数组的元素个数小于等于1个的时候，那么这个两个子数组内部就一定是有序的，因此合并起来的数组也是有序的</strong>。接下来就是重复以上提到的“一轮合并操作”，进行N轮的合并操作。</p>
 <h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">void mergesort(int a[], int first, int last, int temp[])</div><div class="line">&#123;</div><div class="line">	if (first &lt; last)</div><div class="line">	&#123;</div><div class="line">		int mid = (first + last) / 2;</div><div class="line">		mergesort(a, first, mid, temp);    //左边有序</div><div class="line">		mergesort(a, mid + 1, last, temp); //右边有序</div><div class="line">		mergearray(a, first, mid, last, temp); //再将二个有序数列合并</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="二、快速排序-复杂度O-N-logN"><a href="#二、快速排序-复杂度O-N-logN" class="headerlink" title="二、快速排序(复杂度O(N*logN))"></a>二、快速排序(复杂度O(N*logN))</h2><h3 id="一轮排序操作"><a href="#一轮排序操作" class="headerlink" title="一轮排序操作"></a>一轮排序操作</h3><ol>
 <li>先从数列中取出一个数作为基准数。</li>
@@ -1285,7 +1438,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/11/15/苹果的文字系统/">
+  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/11/15/Mach-O格式文件(用户态下的进程加载)/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="EA88">
@@ -1310,585 +1463,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/15/苹果的文字系统/" itemprop="url">
-                  苹果文字系统
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-15T10:33:17+08:00">
-                2016-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS开发笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS开发笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          首先我们需要知道的是字符（character）跟字形（glyphs）是有区别的。字符使我们用来交流的，可以通过说话、或者书写来传递，而字形则是字符被展示出来的形态，比如大小写、宋体的样式等。字符跟字形不是一一对应的，有的时候，一个字符可以由多个字形组成。有时候，多个字符可以用一个字形来表示...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/15/苹果的文字系统/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/10/27/TheResponderChain/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="EA88">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="EA88'Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/27/TheResponderChain/" itemprop="url">
-                  iOS的事件处理顺序
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-27T17:23:51+08:00">
-                2016-10-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Apple-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Apple Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Apple-Development/iOS开发笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS开发笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          通常我们开发的app的UI元素都是有一个个view对堆叠起来的，也就是说我们点击屏幕的某一个区域的时候，会触动所有包含这个区域的view。那么这个触摸事件该由哪个View来处理，或者我们想更改iOS默认的处理方式又该如何下手，我们就需要先了解iOS中的事件是如何分发以及如何响应的。接下来介绍的是从官方文档精选出来的一部内容并加以了说明。
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/27/TheResponderChain/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/10/23/高效学习法/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="EA88">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="EA88'Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/23/高效学习法/" itemprop="url">
-                  高效学习法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-23T17:26:51+08:00">
-                2016-10-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/方法论/" itemprop="url" rel="index">
-                    <span itemprop="name">方法论</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          本文所介绍的学习方法主要的观点来自《如何阅读一本书》、《软技能：代码之外的生存指南》和《把时间当做朋友》。这三本书有些观点是极其相似的，本人将它们综合起来，并且结合了自身的一些体会，提炼出7大步骤...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/23/高效学习法/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/10/22/从code7到xcode8都有哪些坑？/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="EA88">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="EA88'Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/22/从code7到xcode8都有哪些坑？/" itemprop="url">
-                  从code7到xcode8都有哪些坑?
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-22T10:08:17+08:00">
-                2016-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Apple-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Apple Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Apple-Development/iOS开发笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS开发笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          自从有那段使用beta版本的Mac OSX系统，导致机器时常开机卡死的经历之后，就尽量不敢在第一时间使用苹果的beta版系统。但是，由于自己是名iOS开发者，当Xcode出了beta版本无疑是需要第一时间体验一下的，即使Xcode beta版本可以不体验，但是出了第一个Release版本却是不得不更新。接下来讲的就是在使用Xcode8.0所遇到的坑。
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/22/从code7到xcode8都有哪些坑？/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/09/16/Mach-O格式文件(用户态下的进程加载)/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="EA88">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="EA88'Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/16/Mach-O格式文件(用户态下的进程加载)/" itemprop="url">
+                <a class="post-title-link" href="/2016/11/15/Mach-O格式文件(用户态下的进程加载)/" itemprop="url">
                   Mach-O格式文件(用户态下的进程加载)
                 </a>
               
@@ -1903,8 +1478,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-16T11:07:52+08:00">
-                2016-09-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-15T17:31:01+08:00">
+                2016-11-15
               </time>
             
 
@@ -1972,7 +1547,446 @@
           内核加载器会在加载的过程中使用这些命令来对进程进行一些设置：包括分配虚拟内存、创建主线程、启动动态链接器以及处理代码签名等工作。重要的命令有...
           <!--noindex-->
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/16/Mach-O格式文件(用户态下的进程加载)/">
+            <a class="btn" href="/2016/11/15/Mach-O格式文件(用户态下的进程加载)/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/11/15/Mach原语：一起以消息为媒介/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="EA88">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="EA88'Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/15/Mach原语：一起以消息为媒介/" itemprop="url">
+                  Mach原语：一切以消息为媒介
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-15T17:30:40+08:00">
+                2016-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apple-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Apple Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apple-Development/深入解析Mac-OS-X-iOS操作系统笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">深入解析Mac OS X && iOS操作系统笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          在Mach中所有东西（Task、线程、虚拟内存等））都是对象。对象与对象之间通信**只能**通过端口收发消息...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/15/Mach原语：一起以消息为媒介/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/11/15/H5的体验优化/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="EA88">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="EA88'Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/15/H5的体验优化/" itemprop="url">
+                  H5的体验优化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-15T17:29:56+08:00">
+                2016-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          H5跟Native的性能对比 : 1. native可以做缓存，第二次访问可以实现秒开。 2. 对于H5，由于HTTP的不稳定，将会导致H5的第二次访问并不一定会比第一次快。 3.webView的加载需要耗时，网络建立连接也需要时间...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/15/H5的体验优化/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/Easence/2016/11/15/Building xnu for OS X 10.11 El Capitan/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="EA88">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="EA88'Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="EA88'Blog" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/15/Building xnu for OS X 10.11 El Capitan/" itemprop="url">
+                  Building xnu for OS X 10.11 El Capitan
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-15T17:29:47+08:00">
+                2016-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apple-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Apple Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apple-Development/深入解析Mac-OS-X-iOS操作系统笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">深入解析Mac OS X && iOS操作系统笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          此文只因为国内浏览[ssen's blog][1]需要翻墙，为了方便浏览从中拷贝了一份...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/15/Building xnu for OS X 10.11 El Capitan/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2057,7 +2071,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2066,7 +2080,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2126,7 +2140,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
