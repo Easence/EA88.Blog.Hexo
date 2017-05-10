@@ -1,10 +1,11 @@
 ---
 title:  基于Gerrit的Git工作流
-categories: 管理
-tags:
+categories: 代码管理
+tags: 
+- git
+- gerrit
 
 ---
-
 
 # 前言
 为了提高团队的开发效率以及质量，团队成员共同准守一个简单实用的git开发流是十分有必要的，参考文章[A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model)和[Gerrit官方文档](https://gerrit-documentation.storage.googleapis.com/Documentation/2.14/index.html)以及个人的开发经验，总结出了以下内容。
@@ -25,7 +26,7 @@ tags:
 ## master和develop分支（两条永久存在的远程分支）
 当我们新建一个git项目时，有一条默认的分支，即**master分支**，同时我们还应手动创建一个**develop分支**。这两条分支的关系如下图：
 
-![Master和Develop分支](../images/main-branches.png)
+![Master和Develop分支](http://uploadimg.szrd.phiwifi.com/0xdp6vd3rz.png)
 
 这两个分支的功能如下：
 
@@ -40,7 +41,7 @@ tags:
 
 为了便于特性的管理以及减少开发过程中与其他成员代码的冲突，建议在每开发一个新特性的时候都应该对应的从**develop分支**拉出来一条**feature分支**，然后在这个**feature分支**进行开发。开发完成后，将**feature分支**功能合并回到**develop分支**，然后就可以将本地**feature分支**删掉了。**feature分支**与**develop分支**的关系如下图：
 
-![feature](../images/git_fb.png)
+![feature](http://uploadimg.szrd.phiwifi.com/gt02qdu4bq.png)
 
 关于**feature分支**的涉及的`git`命令包含但不仅限于如下：
 
@@ -109,12 +110,12 @@ tags:
 - 有`--no-ff`参数：当合并回**develop分支**的时候，会创建一个新的`commit`，这个`commit`就相当于将上次合并之后的本**feature分支**的所有`commit`打包了。
 - 无`--no-ff`参数：当合并回**develop分支**的时候，不会创建新的`commit`。
 
-![feature diff](../images/merge-without-ff.png)
+![feature diff](http://uploadimg.szrd.phiwifi.com/7tl8b4ezoh.png)
 
 ## hotfix分支
 版本发布之后，存在严重bug需要紧急处理的时候，就需要从**master分支**拉出一条**hotfix分支**，然后在这条分支上修复bug，验证通过后，将其合并回**master分支**以及**develop分支**。
 
-![hotfix](../images/hotfix-branches.png)
+![hotfix](http://uploadimg.szrd.phiwifi.com/rgb7u1ydza.png)
 
 过程一般如下：
 
@@ -165,17 +166,17 @@ tags:
 
 ## Gerrit审核工作流
 
-![Gerrit workflow](../images/gerrit_frame.png)
+![Gerrit workflow](http://uploadimg.szrd.phiwifi.com/8khdbrgcfm.png)
 
 从上图我们可以看出当我们提交代码到Gerrit服务器的时候，并不会直接合并代码到源库中，而是会存储在一个缓冲区中，等待审查者和检验者的评审，通过后方能合并到源代码库中。当然，Gerrit也可以关闭审核流程，但这并不是我们想要的。整个评审流程请参见下图：
 
-![Gerrit workflow](../images/gerrit-workflow.png)
+![Gerrit workflow](http://uploadimg.szrd.phiwifi.com/y0ve1l9a61.png)
 
 ## Gerrit的实际操作
 
 - 首先登陆Gerrit web端，切换到自己的项目，然后选择“Clone with commit-msg hook”，复制后黏贴到终端将项目拷贝到本地。如下图：
 
-![Gerrit的实际使用](../images/commit-msg-hook.png)
+![Gerrit的实际使用](http://uploadimg.szrd.phiwifi.com/6ql2jshgbj.png)
 
 > 提示：一定要选择“Clone with commit-msg hook”选项卡，这样的话，会将Gerrit的`commit-msg hook`自动加入到你的`Your proj/.git/hooks/`目录下，否则后面的提交可能会出现[missing Change-Id in commit message footer](https://gerrit-documentation.storage.googleapis.com/Documentation/2.14/error-missing-changeid.html)错误。
 
@@ -199,7 +200,7 @@ To ssh://szrd.phiwifi.com:29418/HelloGerrit
 
 - 相关的审核人员登录Gerrit->All->List->Open，找到相应的条目进行评审，如下图:
 
-![](../images/gerrit_submit.png)
+![](http://uploadimg.szrd.phiwifi.com/er9tmtm2av.png)
 
 - 具体的评审页面介绍请参见官方介绍[Review UI](https://gerrit-documentation.storage.googleapis.com/Documentation/2.14/user-review-ui.html)。
 
@@ -215,14 +216,14 @@ To ssh://szrd.phiwifi.com:29418/HelloGerrit
 1. 建立项目后，在远端建立两条永久分支：**master分支**（自动创建）和**develop分支**（手动创建）。
 2. 开始开发，每个成员从**develop分支**拉出自己的**feature分支**进行开发。
 3. 成员完成功能后，将自己的**feature分支**合并回**develop分支**。
- 	> push的时候注意：`push origin HEAD:refs/for/develop`。
+ 	> push的时候注意：`git push origin HEAD:refs/for/develop`。
  	
 4. 所有功能完成后，进入测试阶段，如果有并行的版本同时进行，应从**develop分支**拉出一条**release分支**，然后在该分支中进行测试、修复bug，直到稳定。
 5. 发布版本之前，如有**release分支**，将其合并回**develop分支**以及合并到**master分支**，如果没有**release分支**，则将**develop分支**合并到**master分支**，然后进行测试验证，验证通过后，可将**release分支**删除，最后将**develop分支**和**master分支**push到远端。
-	> push的时候注意：`push origin HEAD:refs/for/develop`或者`push origin HEAD:refs/for/master`。
+	> push的时候注意：`git push origin HEAD:refs/for/develop`或者`git push origin HEAD:refs/for/master`。
 6. 发布版本时，在**master分支**打上相应的**tag**。
 7. 如有紧急bug需要处理，从**master分支**拉出来一个**hotfix分支**，然后在这个分支修复、验证，通过之后合并回**master分支**和**develop分支**，在**master分支**上打上**tag**，可将**hotfix分支**删除，最后将**master分支**和**develop分支**push到远端。
-   > push的时候注意：`push origin HEAD:refs/for/develop`或者`push origin HEAD:refs/for/master`。
+   > push的时候注意：`git push origin HEAD:refs/for/develop`或者`git push origin HEAD:refs/for/master`。
 
 上面流程都是评审一切顺利的过程，如果push到远端的提交没有被通过，则需要重新修改后再提交，反复如是，直到通过。这个过程中由于引入了Gerrit，凡是涉及到push操作，都应注意将其push到`refs/for/*`下。
 

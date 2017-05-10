@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="git,gerrit," />
 
 
 
@@ -100,15 +100,15 @@ Git工作流简述整个开发过程中我们一般会涉及以下这几个类�
 master分支：永久存在远端的主干分支。
 develop分支：永久存在远端的开发分支。
 featur">
-<meta property="og:image" content="https://github.com/Easence/../images/main-branches.png">
-<meta property="og:image" content="https://github.com/Easence/../images/git_fb.png">
-<meta property="og:image" content="https://github.com/Easence/../images/merge-without-ff.png">
-<meta property="og:image" content="https://github.com/Easence/../images/hotfix-branches.png">
-<meta property="og:image" content="https://github.com/Easence/../images/gerrit_frame.png">
-<meta property="og:image" content="https://github.com/Easence/../images/gerrit-workflow.png">
-<meta property="og:image" content="https://github.com/Easence/../images/commit-msg-hook.png">
-<meta property="og:image" content="https://github.com/Easence/../images/gerrit_submit.png">
-<meta property="og:updated_time" content="2017-05-10T07:04:09.000Z">
+<meta property="og:image" content="http://uploadimg.szrd.phiwifi.com/0xdp6vd3rz.png">
+<meta property="og:image" content="http://uploadimg.szrd.phiwifi.com/gt02qdu4bq.png">
+<meta property="og:image" content="http://uploadimg.szrd.phiwifi.com/7tl8b4ezoh.png">
+<meta property="og:image" content="http://uploadimg.szrd.phiwifi.com/rgb7u1ydza.png">
+<meta property="og:image" content="http://uploadimg.szrd.phiwifi.com/8khdbrgcfm.png">
+<meta property="og:image" content="http://uploadimg.szrd.phiwifi.com/y0ve1l9a61.png">
+<meta property="og:image" content="http://uploadimg.szrd.phiwifi.com/6ql2jshgbj.png">
+<meta property="og:image" content="http://uploadimg.szrd.phiwifi.com/er9tmtm2av.png">
+<meta property="og:updated_time" content="2017-05-10T09:22:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Gerrit的Git工作流">
 <meta name="twitter:description" content="前言为了提高团队的开发效率以及质量，团队成员共同准守一个简单实用的git开发流是十分有必要的，参考文章A successful Git branching model和Gerrit官方文档以及个人的开发经验，总结出了以下内容。
@@ -117,7 +117,7 @@ Git工作流简述整个开发过程中我们一般会涉及以下这几个类�
 master分支：永久存在远端的主干分支。
 develop分支：永久存在远端的开发分支。
 featur">
-<meta name="twitter:image" content="https://github.com/Easence/../images/main-branches.png">
+<meta name="twitter:image" content="http://uploadimg.szrd.phiwifi.com/0xdp6vd3rz.png">
 
 
 
@@ -345,8 +345,8 @@ featur">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/管理/" itemprop="url" rel="index">
-                    <span itemprop="name">管理</span>
+                  <a href="/categories/代码管理/" itemprop="url" rel="index">
+                    <span itemprop="name">代码管理</span>
                   </a>
                 </span>
 
@@ -393,7 +393,7 @@ featur">
 </ul>
 <p>详细的介绍请往下看。</p>
 <h2 id="master和develop分支（两条永久存在的远程分支）"><a href="#master和develop分支（两条永久存在的远程分支）" class="headerlink" title="master和develop分支（两条永久存在的远程分支）"></a>master和develop分支（两条永久存在的远程分支）</h2><p>当我们新建一个git项目时，有一条默认的分支，即<strong>master分支</strong>，同时我们还应手动创建一个<strong>develop分支</strong>。这两条分支的关系如下图：</p>
-<p><img src="../images/main-branches.png" alt="Master和Develop分支"></p>
+<p><img src="http://uploadimg.szrd.phiwifi.com/0xdp6vd3rz.png" alt="Master和Develop分支"></p>
 <p>这两个分支的功能如下：</p>
 <ul>
 <li><p><strong>master分支</strong>：是项目的主干分支，是一条<strong>最稳定</strong>的分支，意味着开发工程中<strong>尽量不要改动该分支</strong>。基本上就是在项目<strong>初始化</strong>、<strong>打tag</strong>、以及<strong>紧急bug修复</strong>的时候会切换到该分支。开发过程中一般不会切换到该分支，如果要更改<strong>master</strong>分支的代码，<strong>还请三思</strong>。</p>
@@ -402,7 +402,7 @@ featur">
 </li>
 </ul>
 <h2 id="从develop分支拉出去的两条分支"><a href="#从develop分支拉出去的两条分支" class="headerlink" title="从develop分支拉出去的两条分支"></a>从develop分支拉出去的两条分支</h2><h3 id="feature分支（仅存在本地的分支）"><a href="#feature分支（仅存在本地的分支）" class="headerlink" title="feature分支（仅存在本地的分支）"></a>feature分支（仅存在本地的分支）</h3><p>为了便于特性的管理以及减少开发过程中与其他成员代码的冲突，建议在每开发一个新特性的时候都应该对应的从<strong>develop分支</strong>拉出来一条<strong>feature分支</strong>，然后在这个<strong>feature分支</strong>进行开发。开发完成后，将<strong>feature分支</strong>功能合并回到<strong>develop分支</strong>，然后就可以将本地<strong>feature分支</strong>删掉了。<strong>feature分支</strong>与<strong>develop分支</strong>的关系如下图：</p>
-<p><img src="../images/git_fb.png" alt="feature"></p>
+<p><img src="http://uploadimg.szrd.phiwifi.com/gt02qdu4bq.png" alt="feature"></p>
 <p>关于<strong>feature分支</strong>的涉及的<code>git</code>命令包含但不仅限于如下：</p>
 <ul>
 <li><p>从<strong>develop分支</strong>拉出来一条<strong>feature分支</strong>：</p>
@@ -435,9 +435,9 @@ featur">
 <li>有<code>--no-ff</code>参数：当合并回<strong>develop分支</strong>的时候，会创建一个新的<code>commit</code>，这个<code>commit</code>就相当于将上次合并之后的本<strong>feature分支</strong>的所有<code>commit</code>打包了。</li>
 <li>无<code>--no-ff</code>参数：当合并回<strong>develop分支</strong>的时候，不会创建新的<code>commit</code>。</li>
 </ul>
-<p><img src="../images/merge-without-ff.png" alt="feature diff"></p>
+<p><img src="http://uploadimg.szrd.phiwifi.com/7tl8b4ezoh.png" alt="feature diff"></p>
 <h2 id="hotfix分支"><a href="#hotfix分支" class="headerlink" title="hotfix分支"></a>hotfix分支</h2><p>版本发布之后，存在严重bug需要紧急处理的时候，就需要从<strong>master分支</strong>拉出一条<strong>hotfix分支</strong>，然后在这条分支上修复bug，验证通过后，将其合并回<strong>master分支</strong>以及<strong>develop分支</strong>。</p>
-<p><img src="../images/hotfix-branches.png" alt="hotfix"></p>
+<p><img src="http://uploadimg.szrd.phiwifi.com/rgb7u1ydza.png" alt="hotfix"></p>
 <p>过程一般如下：</p>
 <ol>
 <li><p>从<strong>master分支</strong>拉出一条<strong>hotfix分支</strong>。</p>
@@ -463,13 +463,13 @@ featur">
 </ol>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>按照如上的git工作流，基本上能解决团队合作开发的问题，但是为了能提高代码的质量，可以引入<strong>code review</strong>机制，即每个提交都需要经过相关人员审核才能合入远程的分支或者主干。这个工作可以人工管理，也可以采用一些现成的工具，<strong>Gerrit</strong>就是这么一个带有评审机制的git服务，下面就对其进行简单介绍。</p>
 <h1 id="Gerrit简述"><a href="#Gerrit简述" class="headerlink" title="Gerrit简述"></a>Gerrit简述</h1><h2 id="简述-1"><a href="#简述-1" class="headerlink" title="简述"></a>简述</h2><p><strong>Gerrit</strong>，是一个基于SSH协议实现的一套Git服务器，也是Android项目使用的评审服务器。利用网页浏览器，同一个团队的软件程序员，可以相互审阅彼此修改后的代码，决定是否能够提交，退回或是继续修改。详细介绍可参见<a href="https://zh.wikipedia.org/zh-cn/Gerrit" target="_blank" rel="external">维基百科</a>或者更加全面的了解Gerrit<a href="https://gerrit-documentation.storage.googleapis.com/Documentation/2.14/index.html" target="_blank" rel="external">官方文档</a>无疑是最好的资料。</p>
-<h2 id="Gerrit审核工作流"><a href="#Gerrit审核工作流" class="headerlink" title="Gerrit审核工作流"></a>Gerrit审核工作流</h2><p><img src="../images/gerrit_frame.png" alt="Gerrit workflow"></p>
+<h2 id="Gerrit审核工作流"><a href="#Gerrit审核工作流" class="headerlink" title="Gerrit审核工作流"></a>Gerrit审核工作流</h2><p><img src="http://uploadimg.szrd.phiwifi.com/8khdbrgcfm.png" alt="Gerrit workflow"></p>
 <p>从上图我们可以看出当我们提交代码到Gerrit服务器的时候，并不会直接合并代码到源库中，而是会存储在一个缓冲区中，等待审查者和检验者的评审，通过后方能合并到源代码库中。当然，Gerrit也可以关闭审核流程，但这并不是我们想要的。整个评审流程请参见下图：</p>
-<p><img src="../images/gerrit-workflow.png" alt="Gerrit workflow"></p>
+<p><img src="http://uploadimg.szrd.phiwifi.com/y0ve1l9a61.png" alt="Gerrit workflow"></p>
 <h2 id="Gerrit的实际操作"><a href="#Gerrit的实际操作" class="headerlink" title="Gerrit的实际操作"></a>Gerrit的实际操作</h2><ul>
 <li>首先登陆Gerrit web端，切换到自己的项目，然后选择“Clone with commit-msg hook”，复制后黏贴到终端将项目拷贝到本地。如下图：</li>
 </ul>
-<p><img src="../images/commit-msg-hook.png" alt="Gerrit的实际使用"></p>
+<p><img src="http://uploadimg.szrd.phiwifi.com/6ql2jshgbj.png" alt="Gerrit的实际使用"></p>
 <blockquote>
 <p>提示：一定要选择“Clone with commit-msg hook”选项卡，这样的话，会将Gerrit的<code>commit-msg hook</code>自动加入到你的<code>Your proj/.git/hooks/</code>目录下，否则后面的提交可能会出现<a href="https://gerrit-documentation.storage.googleapis.com/Documentation/2.14/error-missing-changeid.html" target="_blank" rel="external">missing Change-Id in commit message footer</a>错误。</p>
 </blockquote>
@@ -480,7 +480,7 @@ featur">
 <ul>
 <li>相关的审核人员登录Gerrit-&gt;All-&gt;List-&gt;Open，找到相应的条目进行评审，如下图:</li>
 </ul>
-<p><img src="../images/gerrit_submit.png" alt=""></p>
+<p><img src="http://uploadimg.szrd.phiwifi.com/er9tmtm2av.png" alt=""></p>
 <ul>
 <li>具体的评审页面介绍请参见官方介绍<a href="https://gerrit-documentation.storage.googleapis.com/Documentation/2.14/user-review-ui.html" target="_blank" rel="external">Review UI</a>。</li>
 </ul>
@@ -495,18 +495,18 @@ featur">
 <li>开始开发，每个成员从<strong>develop分支</strong>拉出自己的<strong>feature分支</strong>进行开发。</li>
 <li><p>成员完成功能后，将自己的<strong>feature分支</strong>合并回<strong>develop分支</strong>。</p>
 <blockquote>
-<p>push的时候注意：<code>push origin HEAD:refs/for/develop</code>。</p>
+<p>push的时候注意：<code>git push origin HEAD:refs/for/develop</code>。</p>
 </blockquote>
 </li>
 <li><p>所有功能完成后，进入测试阶段，如果有并行的版本同时进行，应从<strong>develop分支</strong>拉出一条<strong>release分支</strong>，然后在该分支中进行测试、修复bug，直到稳定。</p>
 </li>
 <li>发布版本之前，如有<strong>release分支</strong>，将其合并回<strong>develop分支</strong>以及合并到<strong>master分支</strong>，如果没有<strong>release分支</strong>，则将<strong>develop分支</strong>合并到<strong>master分支</strong>，然后进行测试验证，验证通过后，可将<strong>release分支</strong>删除，最后将<strong>develop分支</strong>和<strong>master分支</strong>push到远端。<blockquote>
-<p>push的时候注意：<code>push origin HEAD:refs/for/develop</code>或者<code>push origin HEAD:refs/for/master</code>。</p>
+<p>push的时候注意：<code>git push origin HEAD:refs/for/develop</code>或者<code>git push origin HEAD:refs/for/master</code>。</p>
 </blockquote>
 </li>
 <li>发布版本时，在<strong>master分支</strong>打上相应的<strong>tag</strong>。</li>
 <li>如有紧急bug需要处理，从<strong>master分支</strong>拉出来一个<strong>hotfix分支</strong>，然后在这个分支修复、验证，通过之后合并回<strong>master分支</strong>和<strong>develop分支</strong>，在<strong>master分支</strong>上打上<strong>tag</strong>，可将<strong>hotfix分支</strong>删除，最后将<strong>master分支</strong>和<strong>develop分支</strong>push到远端。<blockquote>
-<p>push的时候注意：<code>push origin HEAD:refs/for/develop</code>或者<code>push origin HEAD:refs/for/master</code>。</p>
+<p>push的时候注意：<code>git push origin HEAD:refs/for/develop</code>或者<code>git push origin HEAD:refs/for/master</code>。</p>
 </blockquote>
 </li>
 </ol>
@@ -536,6 +536,14 @@ featur">
 
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/gerrit/" rel="tag"># gerrit</a>
+          
+        </div>
       
 
       
@@ -635,7 +643,7 @@ featur">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
