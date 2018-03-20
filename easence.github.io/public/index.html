@@ -344,11 +344,11 @@
       
         
           
-            <p>#前言<br>本文主要研读了iOS端的<a href="https://github.com/marcuswestin/WebViewJavascriptBridge">WebViewJavascriptBridge</a>源码，并将其流程进行梳理，分为iOS端调用JS端，以及JS端调用iOS端。</p>
-<h1 id="iOS端调用JS端"><a href="#iOS端调用JS端" class="headerlink" title="iOS端调用JS端"></a>iOS端调用JS端</h1><h2 id="主流程"><a href="#主流程" class="headerlink" title="主流程"></a>主流程</h2><ol>
-<li>JS端调用<code>WebViewJavascriptBridge</code>的<code>registerHandler(handlerName, handler)</code>注册相应的回调，并存到一个<code>messageHandlers</code>的数组当中。</li>
-<li>JS端通过将一个隐藏的iframe的src设置为：<code>https://__bridge_loaded__</code>，来触发OC的WebView的回调<code>webView: shouldStartLoadWithRequest: navigationType:</code>，此时会判断该请求的url，如果是上面的的<code>https://__bridge_loaded__</code>，则将<code>WebViewJavascriptBridge</code>的JS代码注入（通过调用UIWebView的<code>stringByEvaluatingJavaScriptFromString:</code>或者WKWebview的<code>stringByEvaluatingJavaScriptFromString:completionHandler:</code>的方法）到网页中。</li>
-<li><p>iOS端调用<code>callHandler:handlerName data: responseCallback:</code>，并将其参数封装成一个WVJBMessage（NSDictionary），格式如下：</p>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文主要内容是对iOS的<a href="https://github.com/marcuswestin/WebViewJavascriptBridge">WebViewJavascriptBridge</a>源码进行分析梳理，分为iOS端调用JS端，以及JS端调用iOS端两部分，并在最后进行了总结。</p>
+<h1 id="iOS端调用JS端"><a href="#iOS端调用JS端" class="headerlink" title="iOS端调用JS端"></a>iOS端调用JS端</h1><ol>
+<li>JS端调用<code>WebViewJavascriptBridge</code>的<code>registerHandler(handlerName, handler)</code>注册相应的回调，并将<code>handler</code>存到一个<code>messageHandlers</code>的数组当中。</li>
+<li>JS端通过将一个隐藏的<code>iframe</code>的<code>src</code>设置为：<code>https://__bridge_loaded__</code>，来触发OC的WebView的回调<code>webView: shouldStartLoadWithRequest: navigationType:</code>，此时会判断该请求的url，如果是上面的的<code>https://__bridge_loaded__</code>，则将<code>WebViewJavascriptBridge</code>的JS代码注入（通过调用UIWebView的<code>stringByEvaluatingJavaScriptFromString:</code>或者WKWebview的<code>stringByEvaluatingJavaScriptFromString:completionHandler:</code>的方法）到网页中。</li>
+<li><p>iOS端调用<code>callHandler:handlerName data:responseCallback:</code>，并将其参数封装成一个WVJBMessage（NSDictionary）并将<code>responseCallback</code>存到<code>responseCallbacks（NSMutableDictionary）</code>中，格式如下：</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">message:</div><div class="line">&#123;</div><div class="line">    callbackId = &quot;objc_cb_6&quot;; //6是_uniqueId从0，以1为步长累加上来的</div><div class="line">    data =     &#123;</div><div class="line">        greetingFromObjC = &quot;Hi there, JS!&quot;;</div><div class="line">    &#125;;</div><div class="line">    handlerName = testJavascriptHandler; //在js端注册的名字，其对应的是一个方法。</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>向Web端注入JSBridge的JS代码之前先将message保存在一个<code>startupMessageQueue（NSMutableArray）</code>中，待调用<code>injectJavascriptFile</code>向Web端注入JSBridge的JS的时候，递归的执行<code>_dispatchMessage:</code>。</li>
@@ -356,17 +356,24 @@
 </ul>
 </li>
 <li>iOS端接下来会回调UIWebView的<code>stringByEvaluatingJavaScriptFromString:</code>或者WKWebview的<code>stringByEvaluatingJavaScriptFromString:completionHandler:</code>方法执行JS端的代码：<code>WebViewJavascriptBridge._handleMessageFromObjC(&#39;messageJSON&#39;)</code></li>
-<li>JS端执行<code>WebViewJavascriptBridge._handleMessageFromObjC()</code>,从数组<code>messageHandlers</code>根据上面所说的<code>handlerName</code>取出相应的方法执行，如果iOS端有传入<code>callbackId</code>，则将其变成<code>responseId</code>构造一个<code>message</code>，并写入在<code>sendMessageQueue</code>中，接着将<code>iframe</code>的<code>src</code>设置为：<code>https://__wvjb_queue_message__</code>，这将触发UIWebView的<code>webView:shouldStartLoadWithRequest:navigationType:</code>或者WKWebView的<code>webView:decidePolicyForNavigationAction:decisionHandler:</code>回调方法。</li>
-<li>iOS端在调用判断请求是否是<code>https://__wvjb_queue_message__</code>，如果是，则调用<code>flushMessageQueue</code>，从JS端中的<code>sendMessageQueue</code>取出<code>message（json格式）</code>，并将其转换成本地的<code>WVJBMessage（NSDictionary）</code>，并通过它的<code>responseId</code>从本地的<code>responseCallbacks</code>取出回调方法进行执行。</li>
+<li>JS端执行<code>WebViewJavascriptBridge._handleMessageFromObjC()</code>,从数组<code>messageHandlers</code>根据上面所说的<code>handlerName</code>取出相应的方法执行，如果iOS端有传入<code>callbackId</code>，则将其变成<code>responseId</code>，和要返回的数据<code>responseData</code>，构造一个<code>message</code>，并写入在<code>sendMessageQueue</code>中，接着将<code>iframe</code>的<code>src</code>设置为：<code>https://__wvjb_queue_message__</code>，这将触发UIWebView的<code>webView:shouldStartLoadWithRequest:navigationType:</code>或者WKWebView的<code>webView:decidePolicyForNavigationAction:decisionHandler:</code>回调方法。</li>
+<li>iOS端判断请求是否是<code>https://__wvjb_queue_message__</code>，如果是，则调用<code>flushMessageQueue</code>，从JS端中的<code>sendMessageQueue</code>取出<code>message（json格式）</code>，并将其转换成本地的<code>WVJBMessage（NSDictionary）</code>，并通过它的<code>responseId</code>从本地的<code>responseCallbacks</code>取出回调方法进行执行。</li>
 </ol>
-<h1 id="JS端调用iOS端"><a href="#JS端调用iOS端" class="headerlink" title="JS端调用iOS端"></a>JS端调用iOS端</h1><h2 id="主流程-1"><a href="#主流程-1" class="headerlink" title="主流程"></a>主流程</h2><ol>
+<h1 id="JS端调用iOS端"><a href="#JS端调用iOS端" class="headerlink" title="JS端调用iOS端"></a>JS端调用iOS端</h1><ol>
 <li>iOS端在WebView加载前，调用<code>registerHandler:handler:</code>方法注册回调。这些回调会以注册时传入的方法名为key，存入名为<code>messageHandlers（NSMutableDictionary）</code>中。</li>
 <li>JS端调用<code>setupWebViewJavascriptBridge:</code><br>发起一个<code>https://__bridge_loaded__</code>请求（通过设置<code>iframe</code>的<code>src</code>实现）触发iOS端的UIWebView的<code>webView:shouldStartLoadWithRequest:navigationType:</code>或者WKWebView的<code>webView:decidePolicyForNavigationAction:decisionHandler:</code>回调方法，将JSBridge的JS代码注入到网页中。</li>
 <li>JS端调用<code>bridge.callHandler(handlerName, data, responseCallback)</code>，然后将各个参数封装成一个message，其中会生成一个<code>callbackId</code>来标记这个<code>responseCallback</code>，存入<code>sendMessageQueue</code>中，接着设置<code>iframe</code>的<code>src</code>为<code>https://__wvjb_queue_message__</code>，依次触发UIWebView的<code>webView:shouldStartLoadWithRequest:navigationType:</code>或者WKWebView的<code>webView:decidePolicyForNavigationAction:decisionHandler:</code>回调方法。</li>
-<li>iOS端在调用判断请求是否是<code>https://__wvjb_queue_message__</code>，如果是，则调用<code>flushMessageQueue</code>，从JS端中的<code>sendMessageQueue</code>取出<code>message（json格式）</code>，并将其转换成本地的<code>WVJBMessage（NSDictionary）</code>，并通过它的<code>handlerName</code>从本地的<code>messageHandlers</code>取出回调方法进行执行。</li>
-<li>iOS端接着并将JS端传入的<code>callbackId</code>变成<code>responseId</code>构造一个<code>message</code>,iOS端调用方法<code>_dispatchMessage:</code>中将message序列化成一个json字符串<code>messageJSON</code>。</li>
+<li>iOS端判断请求是否是<code>https://__wvjb_queue_message__</code>，如果是，则调用<code>flushMessageQueue</code>，从JS端中的<code>sendMessageQueue</code>取出<code>message（json格式）</code>，并将其转换成本地的<code>WVJBMessage（NSDictionary）</code>，并通过它的<code>handlerName</code>从本地的<code>messageHandlers</code>取出回调方法进行执行。</li>
+<li>iOS端接着将JS端传入的<code>callbackId</code>变成<code>responseId</code>并和<code>responseData</code>一起构造一个<code>message</code>,然后调用方法<code>_dispatchMessage:</code>中将<code>message</code>序列化成一个json字符串<code>messageJSON</code>。</li>
 <li>JS端执行<code>WebViewJavascriptBridge._handleMessageFromObjC()</code>,根据<code>responseId</code>从数组<code>responseCallbacks</code>中取出相应的回调执行。</li>
 </ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过上面的分析，我们可以发现：</p>
+<ul>
+<li><p>iOS端调用JS接口，通过UIWebView的<code>stringByEvaluatingJavaScriptFromString:</code>或者WKWebview的<code>stringByEvaluatingJavaScriptFromString:completionHandler:</code>的方法既可。但是为了取得取得JS返回的结果，JS必须将结果封装成一个json数据，并写入的<code>sendMessageQueue</code>，然后通过设置一个隐藏的<code>iframe</code>的<code>src</code>为<code>https://__wvjb_queue_message__</code>来触发iOS端的WebView的回调，接着就在回调中调用JS的<code>WebViewJavascriptBridge._fetchQueue()</code>方法，取回要返回的结果信息。</p>
+</li>
+<li><p>JS端调用iOS端的接口，则先将消息写入<code>sendMessageQueue</code>中，然后通过设置一个隐藏的<code>iframe</code>的<code>src</code>为<code>https://__wvjb_queue_message__</code>来触发iOS端的WebView的回调，接着就在回调中调用JS的<code>WebViewJavascriptBridge._fetchQueue()</code>方法，取回要执行的方法的信息，iOS端根据这些信息找到相应的<code>block</code>进行执行，最后将返回的结果转换成json，并调用JS的<code>WebViewJavascriptBridge._handleMessageFromObjC(messageJson)</code>方法将结果回传给JS。</p>
+</li>
+</ul>
 
           
         
@@ -2285,6 +2292,7 @@
   </a>
 </div>
 
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
         
 
